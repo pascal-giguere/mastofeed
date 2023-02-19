@@ -1,0 +1,27 @@
+{
+  "name": "@pascal-giguere/starter-node",
+  "version": "1.0.0",
+  "author": "Pascal Giguère",
+  "repository": "https://github.com/pascal-giguere/starter-node",
+  "private": true,
+  "license": "UNLICENSED",
+  "packageManager": "yarn@3.3.0",
+  "engines": {
+    "node": ">=18",
+    "npm": "please-use-yarn",
+    "yarn": "3.3.0"
+  },
+  "main": "dist/index.js",
+  "devDependencies": {
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.11.10",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "jest": "^29.3.1",
+    "prettier": "^2.8.0",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}
