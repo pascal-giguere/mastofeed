@@ -12,6 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
+    "noImplicitOverride": true,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
