@@ -28,6 +28,7 @@ const laPresseBot = new Bot({
       ],
     },
     description: { path: 'contentSnippet' },
+    author: { path: 'dc:creator' },
     imageUrl: { path: 'enclosure.url' },
     linkUrl: { path: 'link' },
   },

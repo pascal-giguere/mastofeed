@@ -8,6 +8,7 @@ export type Post = {
   subtitle?: string;
   category?: string;
   description?: string;
+  author?: string;
   imageUrl?: string;
   linkUrl?: string;
 };
