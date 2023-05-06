@@ -1,10 +1,9 @@
-import Parser, { Output, Item } from 'rss-parser';
+import { Output, Item } from 'rss-parser';
 import { Entity, MegalodonInterface } from 'megalodon';
 import { isAxiosError } from 'axios';
 import { buildPost, buildToothText, Post, PostDef } from './utils/posts';
 import { initMastodonClient, postTooth } from './utils/mastodon';
-
-const rssParser = new Parser();
+import { parseFeed } from './utils/rss';
 
 type MastofeedOptions = {
   mastodon: MastodonOptions;
@@ -31,7 +30,7 @@ export class Mastofeed {
   };
 
   private fetchFeedItems = async (): Promise<Item[]> => {
-    const feed: Output<Item> = await rssParser.parseURL(this.rssOptions.feedUrl);
+    const feed: Output<Item> = await parseFeed(this.rssOptions.feedUrl);
     console.log(`Fetched ${feed.items.length} feed items.`);
     return feed.items;
   };
