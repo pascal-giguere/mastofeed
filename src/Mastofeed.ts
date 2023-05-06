@@ -1,12 +1,12 @@
 import Parser, { Output, Item } from 'rss-parser';
-import { MegalodonInterface } from 'megalodon';
+import { Entity, MegalodonInterface } from 'megalodon';
 import { isAxiosError } from 'axios';
 import { buildPost, buildToothText, Post, PostDef } from './utils/posts';
 import { initMastodonClient, postTooth } from './utils/mastodon';
 
 const rssParser = new Parser();
 
-type BotOptions = {
+type MastofeedOptions = {
   mastodon: MastodonOptions;
   rss: RssOptions;
 };
@@ -19,7 +19,7 @@ export class Mastofeed {
   readonly rssOptions: RssOptions;
   private readonly mastodonClient: MegalodonInterface;
 
-  constructor(options: BotOptions) {
+  constructor(options: MastofeedOptions) {
     this.rssOptions = options.rss;
     this.mastodonClient = initMastodonClient(options.mastodon.instanceUrl, options.mastodon.accessToken);
   }
@@ -32,6 +32,7 @@ export class Mastofeed {
 
   private fetchFeedItems = async (): Promise<Item[]> => {
     const feed: Output<Item> = await rssParser.parseURL(this.rssOptions.feedUrl);
+    console.log(`Fetched ${feed.items.length} feed items.`);
     return feed.items;
   };
 
@@ -42,17 +43,22 @@ export class Mastofeed {
   private postTooths = async (posts: Post[]): Promise<void> => {
     for (const post of posts) {
       const postNumber: number = posts.indexOf(post) + 1;
-      if (postNumber !== 8) continue;
-      console.log(`Posting tooth '${post.id}' (${postNumber} of ${posts.length})...`);
-      const text: string = buildToothText(post);
-      try {
-        await postTooth(this.mastodonClient, text);
-      } catch (error) {
-        if (isAxiosError(error)) {
-          console.error(`Failed to post tooth '${post.id}': ${JSON.stringify(error.response?.data)}`);
-        } else {
-          throw error;
-        }
+      if (postNumber !== 0) continue; // TODO remove
+      console.log(`Sending tooth for post '${post.id}' (${postNumber} of ${posts.length})...`);
+      await this.tryPostTooth(post);
+    }
+  };
+
+  private tryPostTooth = async (post: Post): Promise<void> => {
+    const text: string = buildToothText(post);
+    try {
+      const tooth: Entity.Status = await postTooth(this.mastodonClient, text);
+      console.log(`Successfully sent tooth '${tooth.id}' for post '${post.id}'.`);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.error(`Failed to send tooth for post '${post.id}': ${JSON.stringify(error.response?.data)}`);
+      } else {
+        throw error;
       }
     }
   };

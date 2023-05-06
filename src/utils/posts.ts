@@ -1,6 +1,11 @@
 import { Item } from 'rss-parser';
 import { PropertyDef, PropertyDefOptions } from './properties';
 
+const MAX_TOOTH_CHARACTER_COUNT = 500;
+
+// All links are counted as 23 characters by Mastodon: https://docs.joinmastodon.org/user/posting/#links
+const TOOTH_LINK_CHARACTER_COUNT = 23;
+
 export type PostDef = Record<keyof Post, PropertyDefOptions>;
 
 export type Post = {
@@ -28,10 +33,22 @@ export function buildPost(postDef: PostDef, item: Item): Post {
 }
 
 export function buildToothText(post: Post): string {
+  const descriptionCharacterBudget: number =
+    MAX_TOOTH_CHARACTER_COUNT -
+    (post.title ? post.title.length : 0) -
+    (post.subtitle ? post.subtitle.length + 1 : 0) -
+    (post.linkUrl ? TOOTH_LINK_CHARACTER_COUNT + 2 : 0) -
+    3;
+
+  const mustTrimDescription: boolean = !!post.description && post.description.length > descriptionCharacterBudget;
+  const trimmedDescription: string | undefined = mustTrimDescription
+    ? post.description!.slice(0, descriptionCharacterBudget) + '…'
+    : post.description;
+
   let text = '';
-  if (post.title) text += `${post.title}\n`;
-  if (post.subtitle) text += `${post.subtitle}\n`;
-  if (post.description) text += `\n${post.description}\n`;
-  if (post.linkUrl) text += `\n${post.linkUrl}`;
+  if (post.title) text += `${post.title}`;
+  if (post.subtitle) text += `\n${post.subtitle}`;
+  if (trimmedDescription) text += `\n\n${trimmedDescription}`;
+  if (post.linkUrl) text += `\n\n${post.linkUrl}`;
   return text;
 }
