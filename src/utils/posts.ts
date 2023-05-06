@@ -4,6 +4,7 @@ import { PropertyDef, PropertyDefOptions } from './properties';
 export type PostDef = Record<keyof Post, PropertyDefOptions>;
 
 export type Post = {
+  id?: string;
   title?: string;
   subtitle?: string;
   category?: string;

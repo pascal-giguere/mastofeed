@@ -4,7 +4,7 @@ export function initMastodonClient(instanceUrl: string, accessToken: string): Me
   return generator('mastodon', instanceUrl, accessToken);
 }
 
-export async function postTooth(mastodonClient: MegalodonInterface, text: string): Promise<void> {
+export async function postTooth(mastodonClient: MegalodonInterface, text: string): Promise<Entity.Status> {
   const response = (await mastodonClient.postStatus(text, { visibility: 'public' })) as Response<Entity.Status>;
-  console.log(response);
+  return response.data;
 }

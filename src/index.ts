@@ -1,11 +1,11 @@
 import 'dotenv/config';
 import env from 'env-var';
-import { Bot } from './bot';
-import { MapTransform, UppercaseTransform } from './transforms';
+import { Mastofeed } from './Mastofeed';
+import { MapTransform, UppercaseTransform } from './utils/transforms';
 
 const MASTODON_ACCESS_TOKEN = env.get('MASTODON_ACCESS_TOKEN').required().asString();
 
-const laPresseBot = new Bot({
+const laPresseBot = new Mastofeed({
   mastodon: {
     instanceUrl: 'https://staging.mastodon.quebec',
     accessToken: MASTODON_ACCESS_TOKEN,
@@ -13,6 +13,7 @@ const laPresseBot = new Bot({
   rss: {
     feedUrl: 'https://www.lapresse.ca/manchettes/rss',
     postDef: {
+      id: { path: 'guid' },
       title: { path: 'title', regex: '(?!.*\\|) *(.+)?', transforms: [new UppercaseTransform()] },
       subtitle: { path: 'title', regex: '^(.+) \\|' },
       category: {

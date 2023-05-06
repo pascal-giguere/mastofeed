@@ -1,6 +1,6 @@
 import itemJson from './rss-item.json';
 import { Item } from 'rss-parser';
-import { PropertyDef } from '../../src/properties';
+import { PropertyDef } from '../../src/utils/properties';
 
 const item: Item = itemJson as unknown;
 

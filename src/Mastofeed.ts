@@ -1,7 +1,8 @@
 import Parser, { Output, Item } from 'rss-parser';
 import { MegalodonInterface } from 'megalodon';
-import { buildPost, buildToothText, Post, PostDef } from './posts';
-import { initMastodonClient, postTooth } from './mastodon';
+import { isAxiosError } from 'axios';
+import { buildPost, buildToothText, Post, PostDef } from './utils/posts';
+import { initMastodonClient, postTooth } from './utils/mastodon';
 
 const rssParser = new Parser();
 
@@ -14,7 +15,7 @@ type MastodonOptions = { instanceUrl: string; accessToken: string };
 
 type RssOptions = { feedUrl: string; postDef: PostDef };
 
-export class Bot {
+export class Mastofeed {
   readonly rssOptions: RssOptions;
   private readonly mastodonClient: MegalodonInterface;
 
@@ -41,9 +42,18 @@ export class Bot {
   private postTooths = async (posts: Post[]): Promise<void> => {
     for (const post of posts) {
       const postNumber: number = posts.indexOf(post) + 1;
-      console.log(`Posting tooth ${postNumber} of ${posts.length}...`);
+      if (postNumber !== 8) continue;
+      console.log(`Posting tooth '${post.id}' (${postNumber} of ${posts.length})...`);
       const text: string = buildToothText(post);
-      await postTooth(this.mastodonClient, text);
+      try {
+        await postTooth(this.mastodonClient, text);
+      } catch (error) {
+        if (isAxiosError(error)) {
+          console.error(`Failed to post tooth '${post.id}': ${JSON.stringify(error.response?.data)}`);
+        } else {
+          throw error;
+        }
+      }
     }
   };
 }
