@@ -43,7 +43,6 @@ export class Mastofeed {
   private postTooths = async (posts: Post[]): Promise<void> => {
     for (const post of posts) {
       const postNumber: number = posts.indexOf(post) + 1;
-      if (postNumber !== 0) continue; // TODO remove
       console.log(`Sending tooth for post '${post.id}' (${postNumber} of ${posts.length})...`);
       await this.tryPostTooth(post);
     }

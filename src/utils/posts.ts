@@ -11,7 +11,7 @@ export type PostDef = Record<keyof Post, PropertyDefOptions>;
 export type Post = {
   id?: string;
   title?: string;
-  subtitle?: string;
+  kicker?: string;
   category?: string;
   description?: string;
   author?: string;
@@ -35,8 +35,8 @@ export function buildPost(postDef: PostDef, item: Item): Post {
 export function buildToothText(post: Post): string {
   const descriptionCharacterBudget: number =
     MAX_TOOTH_CHARACTER_COUNT -
+    (post.kicker ? post.kicker.length + 1 : 0) -
     (post.title ? post.title.length : 0) -
-    (post.subtitle ? post.subtitle.length + 1 : 0) -
     (post.linkUrl ? TOOTH_LINK_CHARACTER_COUNT + 2 : 0) -
     3;
 
@@ -46,8 +46,8 @@ export function buildToothText(post: Post): string {
     : post.description;
 
   let text = '';
+  if (post.kicker) text += `${post.kicker}\n`;
   if (post.title) text += `${post.title}`;
-  if (post.subtitle) text += `\n${post.subtitle}`;
   if (trimmedDescription) text += `\n\n${trimmedDescription}`;
   if (post.linkUrl) text += `\n\n${post.linkUrl}`;
   return text;

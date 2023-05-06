@@ -14,8 +14,8 @@ const laPresseBot = new Mastofeed({
     feedUrl: 'https://www.lapresse.ca/manchettes/rss',
     postDef: {
       id: { path: 'guid' },
-      title: { path: 'title', regex: '(?!.*\\|) *(.+)?', transforms: [new UppercaseTransform()] },
-      subtitle: { path: 'title', regex: '^(.+) \\|' },
+      title: { path: 'title', regex: '(?!.*\\|) *(.+)?' },
+      kicker: { path: 'title', regex: '^(.+) \\|', transforms: [new UppercaseTransform()] },
       category: {
         path: 'link',
         regex: '^https:\\/\\/www\\.lapresse\\.ca\\/(\\w+)\\/',
