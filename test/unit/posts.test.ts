@@ -6,6 +6,8 @@ describe("Build a tooth's text from a Post object", () => {
       title: 'Title',
       kicker: 'Kicker',
       description: 'Description',
+      author: 'Author',
+      category: 'Category',
       linkUrl: 'https://example.com/',
     };
     expect(buildToothText(post)).toEqual(`Kicker
@@ -13,6 +15,7 @@ Title
 
 Description
 
+Author — Category
 https://example.com/`);
   });
 
@@ -54,6 +57,38 @@ https://example.com/`);
 
 Description
 
+https://example.com/`);
+
+    const titleDescriptionAndAuthor: Post = {
+      title: 'Title',
+      description: 'Description',
+      author: 'Author',
+    };
+    expect(buildToothText(titleDescriptionAndAuthor)).toEqual(`Title
+
+Description
+
+Author`);
+
+    const titleDescriptionAndCategory: Post = {
+      title: 'Title',
+      description: 'Description',
+      category: 'Category',
+    };
+    expect(buildToothText(titleDescriptionAndCategory)).toEqual(`Title
+
+Description
+
+Category`);
+
+    const titleAuthorAndLink: Post = {
+      title: 'Title',
+      author: 'Author',
+      linkUrl: 'https://example.com/',
+    };
+    expect(buildToothText(titleAuthorAndLink)).toEqual(`Title
+
+Author
 https://example.com/`);
   });
 
