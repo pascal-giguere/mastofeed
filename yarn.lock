@@ -834,6 +834,8 @@ __metadata:
     "@types/node": ^18.11.10
     "@typescript-eslint/eslint-plugin": ^5.45.0
     "@typescript-eslint/parser": ^5.45.0
+    dotenv: ^16.0.3
+    env-var: ^7.3.1
     eslint: ^8.28.0
     jest: ^29.3.1
     lodash: ^4.17.21
@@ -1858,6 +1860,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^16.0.3":
+  version: 16.0.3
+  resolution: "dotenv@npm:16.0.3"
+  checksum: afcf03f373d7a6d62c7e9afea6328e62851d627a4e73f2e12d0a8deae1cd375892004f3021883f8aec85932cd2834b091f568ced92b4774625b321db83b827f8
+  languageName: node
+  linkType: hard
+
 "electron-to-chromium@npm:^1.4.251":
   version: 1.4.284
   resolution: "electron-to-chromium@npm:1.4.284"
@@ -1899,6 +1908,13 @@ __metadata:
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
   checksum: 65b5df55a8bab92229ab2b40dad3b387fad24613263d103a97f91c9fe43ceb21965cd3392b1ccb5d77088021e525c4e0481adb309625d0cb94ade1d1fb8dc17e
+  languageName: node
+  linkType: hard
+
+"env-var@npm:^7.3.1":
+  version: 7.3.1
+  resolution: "env-var@npm:7.3.1"
+  checksum: e8d1db9470a5964a7aa96d682c18a168326c526468c92a14852f16da143c19cb6c3117691f263b2e29ac0d2d1ee1bd7f383f2451d7491f2c3a555db2f4fcfc92
   languageName: node
   linkType: hard
 

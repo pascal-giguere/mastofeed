@@ -1,28 +1,10 @@
-import generator, { Entity, MegalodonInterface, OAuth, Response } from 'megalodon';
-import { Post } from './posts';
+import generator, { Entity, MegalodonInterface, Response } from 'megalodon';
 
-export async function initMastodonClient(
-  instanceUrl: string,
-  clientId: string,
-  clientSecret: string,
-  authorizationCode: string
-): Promise<MegalodonInterface> {
-  const client: MegalodonInterface = generator('mastodon', instanceUrl);
-  const accessToken = await fetchAccessToken(client, clientId, clientSecret, authorizationCode);
+export function initMastodonClient(instanceUrl: string, accessToken: string): MegalodonInterface {
   return generator('mastodon', instanceUrl, accessToken);
 }
 
-export async function fetchAccessToken(
-  mastodonClient: MegalodonInterface,
-  clientId: string,
-  clientSecret: string,
-  authorizationCode: string
-): Promise<string> {
-  const data: OAuth.TokenData = await mastodonClient.fetchAccessToken(clientId, clientSecret, authorizationCode);
-  return data.accessToken;
-}
-
-export async function postTooth(mastodonClient: MegalodonInterface, post: Post): Promise<void> {
-  const response = (await mastodonClient.postStatus('test tooth')) as Response<Entity.Status>;
+export async function postTooth(mastodonClient: MegalodonInterface, text: string): Promise<void> {
+  const response = (await mastodonClient.postStatus(text, { visibility: 'public' })) as Response<Entity.Status>;
   console.log(response);
 }

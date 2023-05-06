@@ -1,11 +1,14 @@
+import 'dotenv/config';
+import env from 'env-var';
 import { Bot } from './bot';
 import { MapTransform, UppercaseTransform } from './transforms';
+
+const MASTODON_ACCESS_TOKEN = env.get('MASTODON_ACCESS_TOKEN').required().asString();
 
 const laPresseBot = new Bot({
   mastodon: {
     instanceUrl: 'https://staging.mastodon.quebec',
-    clientId: '',
-    clientSecret: '',
+    accessToken: MASTODON_ACCESS_TOKEN,
   },
   rss: {
     feedUrl: 'https://www.lapresse.ca/manchettes/rss',
@@ -41,7 +44,4 @@ const laPresseBot = new Bot({
   },
 });
 
-laPresseBot.fetchFeedItems().then((items) => {
-  const posts = laPresseBot.buildPosts(items);
-  console.log(posts);
-});
+(async () => await laPresseBot.run())();

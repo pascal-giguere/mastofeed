@@ -25,3 +25,12 @@ export function buildPost(postDef: PostDef, item: Item): Post {
 
   return post;
 }
+
+export function buildToothText(post: Post): string {
+  let text = '';
+  if (post.title) text += `${post.title}\n`;
+  if (post.subtitle) text += `${post.subtitle}\n`;
+  if (post.description) text += `\n${post.description}\n`;
+  if (post.linkUrl) text += `\n${post.linkUrl}`;
+  return text;
+}
