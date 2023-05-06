@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
+    "megalodon": "^6.0.1",
     "rss-parser": "^3.12.0"
   }
 }
