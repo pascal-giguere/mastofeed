@@ -37,7 +37,12 @@ export function buildToothText(post: Post): string {
     MAX_TOOTH_CHARACTER_COUNT -
     (post.kicker ? post.kicker.length + 1 : 0) -
     (post.title ? post.title.length : 0) -
-    (post.linkUrl ? TOOTH_LINK_CHARACTER_COUNT + 2 : 0) -
+    (post.author || post.category || post.linkUrl ? 1 : 0) -
+    (post.author || post.category ? 1 : 0) -
+    (post.author ? post.author.length : 0) -
+    (post.author && post.category ? 3 : 0) -
+    (post.category ? post.category.length : 0) -
+    (post.linkUrl ? TOOTH_LINK_CHARACTER_COUNT + 1 : 0) -
     3;
 
   const mustTrimDescription: boolean = !!post.description && post.description.length > descriptionCharacterBudget;
@@ -49,6 +54,11 @@ export function buildToothText(post: Post): string {
   if (post.kicker) text += `${post.kicker}\n`;
   if (post.title) text += `${post.title}`;
   if (trimmedDescription) text += `\n\n${trimmedDescription}`;
-  if (post.linkUrl) text += `\n\n${post.linkUrl}`;
+  if (post.author || post.category || post.linkUrl) text += '\n';
+  if (post.author || post.category) text += '\n';
+  if (post.author) text += post.author;
+  if (post.author && post.category) text += ' — ';
+  if (post.category) text += post.category;
+  if (post.linkUrl) text += `\n${post.linkUrl}`;
   return text;
 }
