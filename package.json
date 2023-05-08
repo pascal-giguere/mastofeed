@@ -1,8 +1,8 @@
 {
-  "name": "@pascal-giguere/starter-node",
+  "name": "mastofeed",
   "version": "1.0.0",
   "author": "Pascal Giguère",
-  "repository": "https://github.com/pascal-giguere/starter-node",
+  "repository": "https://github.com/pascal-giguere/mastofeed",
   "private": true,
   "license": "UNLICENSED",
   "packageManager": "yarn@3.3.0",
@@ -12,6 +12,14 @@
     "yarn": "3.3.0"
   },
   "main": "dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "tsc --build --clean",
+    "prepack": "yarn run clean && yarn run build"
+  },
   "devDependencies": {
     "@types/jest": "^29.2.3",
     "@types/lodash": "^4.14.191",
