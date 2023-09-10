@@ -1,6 +1,6 @@
 {
   "name": "mastofeed",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "Pascal Giguère",
   "repository": "https://github.com/pascal-giguere/mastofeed",
   "private": true,
@@ -18,7 +18,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "tsc --build --clean",
-    "prepack": "yarn run clean && yarn run build"
+    "prepack": "yarn run clean && yarn run build",
+    "test:unit": "jest --config test/unit/jest.config.ts"
   },
   "devDependencies": {
     "@types/jest": "^29.2.3",
