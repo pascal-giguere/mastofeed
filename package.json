@@ -5,7 +5,7 @@
   "repository": "https://github.com/pascal-giguere/mastofeed",
   "private": true,
   "license": "UNLICENSED",
-  "packageManager": "yarn@3.3.0",
+  "packageManager": "yarn@3.6.3",
   "engines": {
     "node": ">=18",
     "npm": "please-use-yarn",
@@ -32,7 +32,7 @@
     "prettier": "^3.0.3",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.3"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "axios": "^1.5.0",
