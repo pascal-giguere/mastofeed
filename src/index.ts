@@ -1,2 +1,2 @@
-export { Mastofeed } from '../src/Mastofeed';
-export { UppercaseTransform, LowercaseTransform, CapitalizeTransform, MapTransform } from '../src/utils/transforms';
+export { Mastofeed } from './Mastofeed';
+export { UppercaseTransform, LowercaseTransform, CapitalizeTransform, MapTransform } from './utils/transforms';
