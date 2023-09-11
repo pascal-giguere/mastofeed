@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "author": "Pascal Giguère",
   "repository": "https://github.com/pascal-giguere/mastofeed",
-  "private": true,
-  "license": "UNLICENSED",
+  "license": "GPL-3.0-only",
   "packageManager": "yarn@3.6.3",
   "engines": {
     "node": ">=18",
