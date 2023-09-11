@@ -25,16 +25,19 @@ export function buildPost(postDef: PostDef, item: Item): Post {
   const post: Partial<Post> = {};
 
   for (const [propertyName, propertyDefOptions] of Object.entries(postDef)) {
+    const propertyKey = propertyName as keyof Post;
     const propertyDef = new PropertyDef(propertyDefOptions);
+    const isRequiredProperty: boolean = REQUIRED_POST_PROPERTIES.includes(propertyKey);
     const extractedValue: string | undefined = propertyDef.extractValue(item);
+
     if (extractedValue === undefined) {
-      const isRequiredProperty: boolean = REQUIRED_POST_PROPERTIES.includes(propertyName as keyof Post);
       if (isRequiredProperty) {
         throw new Error(`Failed to extract a value from RSS for required property '${propertyName}'.`);
       }
       continue;
     }
-    post[propertyName as keyof Post] = extractedValue ? propertyDef.applyTransforms(extractedValue) : undefined;
+
+    post[propertyKey] = propertyDef.applyTransforms(extractedValue);
   }
 
   return post as Post;
