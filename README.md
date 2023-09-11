@@ -1,6 +1,6 @@
 # Mastofeed
 
-Publish RSS feeds to Mastodon using bot accounts.
+Publish an RSS feed to Mastodon
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -8,9 +8,9 @@ Publish RSS feeds to Mastodon using bot accounts.
 
 Mastofeed requires that you use a Mastodon bot account and generate an access token for it.
 
-To generate an access token, log in to your Mastodon instance with your bot account, then go to Preferences >
-Development and create a new application with the `write:media` and `write:statuses` scopes. Take note of the access
-token that is generated for your application.
+To do so, log into your Mastodon instance with your bot account, then go to Preferences > Development and create a new
+application with the `write:media` and `write:statuses` scopes. Take note of the access token generated for your
+application.
 
 ## Installation
 
@@ -22,7 +22,8 @@ npm install mastofeed
 
 Instantiate a `Mastofeed` client, providing your Mastodon and RSS configuration.
 
-Use the `rss.postDef` property to define a mapping of RSS item attributes and customize the contents of your Mastodon posts.
+Use the `rss.postDef` property to define a mapping of RSS item attributes and customize the contents of your Mastodon
+posts.
 
 #### Basic example:
 
