@@ -94,7 +94,7 @@ const feed = new Mastofeed({
 
 #### Publishing to Mastodon
 
-Then, to publish all new RSS items to your Mastodon instance from your bot account:
+Then, to post all new RSS feed items to Mastodon from your bot account:
 
 ```js
 await feed.publish();
