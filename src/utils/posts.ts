@@ -6,17 +6,17 @@ const MAX_TOOTH_CHARACTER_COUNT = 500;
 // All links are counted as 23 characters by Mastodon: https://docs.joinmastodon.org/user/posting/#links
 const TOOTH_LINK_CHARACTER_COUNT = 23;
 
-export type PostDef = Record<keyof Post, PropertyDefOptions>;
+export type PostDef = { [_ in keyof Post]: PropertyDefOptions };
 
 export type Post = {
-  id?: string;
-  title?: string;
+  id: string;
+  title: string;
+  linkUrl: string;
   kicker?: string;
   category?: string;
   description?: string;
   author?: string;
   imageUrl?: string;
-  linkUrl?: string;
 };
 
 export function buildPost(postDef: PostDef, item: Item): Post {
@@ -29,7 +29,7 @@ export function buildPost(postDef: PostDef, item: Item): Post {
     post[propertyName] = extractedValue ? propertyDef.applyTransforms(extractedValue) : undefined;
   }
 
-  return post;
+  return post as Post;
 }
 
 export function buildToothText(post: Post): string {
