@@ -1,10 +1,10 @@
-# Mastofeed
+# Mastofeed 📬
 
-Publish an RSS feed to Mastodon
+Post new RSS feed items to Mastodon.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## Prerequisite
+## Prerequisites
 
 Mastofeed requires that you use a Mastodon bot account and generate an access token for it.
 
