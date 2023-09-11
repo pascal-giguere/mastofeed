@@ -24,7 +24,7 @@ export function buildPost(postDef: PostDef, item: Item): Post {
   const postProperties = Object.keys(postDef) as (keyof Post)[];
 
   for (const propertyName of postProperties) {
-    const propertyDef = new PropertyDef(postDef[propertyName]);
+    const propertyDef = new PropertyDef(postDef[propertyName]!);
     const extractedValue: string | undefined = propertyDef.extractValue(item);
     post[propertyName] = extractedValue ? propertyDef.applyTransforms(extractedValue) : undefined;
   }
