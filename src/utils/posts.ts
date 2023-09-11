@@ -6,6 +6,8 @@ const MAX_TOOTH_CHARACTER_COUNT = 500;
 // All links are counted as 23 characters by Mastodon: https://docs.joinmastodon.org/user/posting/#links
 const TOOTH_LINK_CHARACTER_COUNT = 23;
 
+const REQUIRED_POST_PROPERTIES: (keyof Post)[] = ['id', 'title', 'linkUrl'];
+
 export type PostDef = { [_ in keyof Post]: PropertyDefOptions };
 
 export type Post = {
@@ -21,12 +23,18 @@ export type Post = {
 
 export function buildPost(postDef: PostDef, item: Item): Post {
   const post: Partial<Post> = {};
-  const postProperties = Object.keys(postDef) as (keyof Post)[];
 
-  for (const propertyName of postProperties) {
-    const propertyDef = new PropertyDef(postDef[propertyName]!);
+  for (const [propertyName, propertyDefOptions] of Object.entries(postDef)) {
+    const propertyDef = new PropertyDef(propertyDefOptions);
     const extractedValue: string | undefined = propertyDef.extractValue(item);
-    post[propertyName] = extractedValue ? propertyDef.applyTransforms(extractedValue) : undefined;
+    if (extractedValue === undefined) {
+      const isRequiredProperty: boolean = REQUIRED_POST_PROPERTIES.includes(propertyName as keyof Post);
+      if (isRequiredProperty) {
+        throw new Error(`Failed to extract a value from RSS for required property '${propertyName}'.`);
+      }
+      continue;
+    }
+    post[propertyName as keyof Post] = extractedValue ? propertyDef.applyTransforms(extractedValue) : undefined;
   }
 
   return post as Post;
