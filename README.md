@@ -85,7 +85,6 @@ const feed = new Mastofeed({
       },
       description: { path: 'contentSnippet' },
       author: { path: 'dc:creator' },
-      imageUrl: { path: 'enclosure.url' },
       linkUrl: { path: 'link' },
     },
   },

@@ -19,7 +19,6 @@ export type Post = {
   category?: string;
   description?: string;
   author?: string;
-  imageUrl?: string;
 };
 
 export function buildPost(postDef: PostDef, item: Item): Post {
