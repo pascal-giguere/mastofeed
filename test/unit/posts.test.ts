@@ -17,7 +17,7 @@ Title
 Description
 
 Author — Category
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
   });
 
   it('builds tooth text from a partial Post object', () => {
@@ -28,7 +28,7 @@ https://example.com/`);
     };
     expect(buildToothText(titleAndLink)).toEqual(`Title
 
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
 
     const titleKickerAndLink: Post = {
       id: '123',
@@ -39,7 +39,7 @@ https://example.com/`);
     expect(buildToothText(titleKickerAndLink)).toEqual(`Kicker
 Title
 
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
 
     const titleDescriptionAndLink: Post = {
       id: '123',
@@ -51,7 +51,7 @@ https://example.com/`);
 
 Description
 
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
 
     const titleDescriptionAuthorAndLink: Post = {
       id: '123',
@@ -65,7 +65,7 @@ https://example.com/`);
 Description
 
 Author
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
 
     const titleDescriptionCategoryAndLink: Post = {
       id: '123',
@@ -79,7 +79,7 @@ https://example.com/`);
 Description
 
 Category
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
 
     const titleAuthorAndLink: Post = {
       id: '123',
@@ -90,7 +90,7 @@ https://example.com/`);
     expect(buildToothText(titleAuthorAndLink)).toEqual(`Title
 
 Author
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
   });
 
   it('builds tooth text with trimmed description if character count > 500', () => {
@@ -110,7 +110,7 @@ Title
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est labor…
 
 Author — Category
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
   });
 
   const titleKickerDescriptionAndLink: Post = {
@@ -126,7 +126,7 @@ Title
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspic…
 
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
 
   const titleDescriptionAuthorAndLink: Post = {
     id: '123',
@@ -141,7 +141,7 @@ https://example.com/`);
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspic…
 
 Author
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
 
   const titleDescriptionCategoryAndLink: Post = {
     id: '123',
@@ -156,5 +156,5 @@ https://example.com/`);
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut persp…
 
 Category
-https://example.com/`);
+https://example.com/?mfid=MTIz`);
 });

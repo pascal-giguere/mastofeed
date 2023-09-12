@@ -1,5 +1,6 @@
 import { Item } from 'rss-parser';
 import { PropertyDef, PropertyDefOptions } from './properties';
+import { encodeMFID } from './mfid';
 
 const MAX_TOOTH_CHARACTER_COUNT = 500;
 
@@ -70,6 +71,6 @@ export function buildToothText(post: Post): string {
   if (post.author) text += post.author;
   if (post.author && post.category) text += ' — ';
   if (post.category) text += post.category;
-  if (post.linkUrl) text += `\n${post.linkUrl}`;
+  if (post.linkUrl) text += `\n${post.linkUrl}?mfid=${encodeMFID(post.id)}`;
   return text;
 }
