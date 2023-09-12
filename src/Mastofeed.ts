@@ -2,8 +2,9 @@ import { Output, Item } from 'rss-parser';
 import { Entity, MegalodonInterface } from 'megalodon';
 import { isAxiosError } from 'axios';
 import { buildPost, buildToothText, Post, PostDef } from './utils/posts';
-import { initMastodonClient, postTooth } from './utils/mastodon';
+import { fetchExistingTooths, initMastodonClient, postTooth } from './utils/mastodon';
 import { parseFeed } from './utils/rss';
+import { extractMFIDFromUrl } from './utils/mfid';
 
 type MastofeedOptions = {
   mastodon: MastodonOptions;
@@ -24,9 +25,16 @@ export class Mastofeed {
   }
 
   run = async (): Promise<void> => {
+    const fetchExistingMFIDs: string[] = await this.fetchExistingMFIDs();
+    console.log(`Fetched ${fetchExistingMFIDs.length} existing MFIDs:`, JSON.stringify(fetchExistingMFIDs));
     const feedItems: Item[] = await this.fetchFeedItems();
     const posts: Post[] = this.buildPosts(feedItems);
     await this.postTooths(posts);
+  };
+
+  private fetchExistingMFIDs = async (): Promise<string[]> => {
+    const existingTooths = await fetchExistingTooths(this.mastodonClient);
+    return existingTooths.map((tooth: Entity.Status) => extractMFIDFromUrl(tooth.uri));
   };
 
   private fetchFeedItems = async (): Promise<Item[]> => {

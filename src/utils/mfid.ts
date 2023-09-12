@@ -8,3 +8,11 @@ export function encodeMFID(decoded: string): string {
 export function decodeMFID(encoded: string): string {
   return Buffer.from(encoded, 'base64').toString('utf-8');
 }
+
+export function extractMFIDFromUrl(url: string): string {
+  const encodedMfid = new URL(url).searchParams.get('mfid');
+  if (!encodedMfid) {
+    throw new Error(`Failed to extract MFID from URL '${url}'.`);
+  }
+  return decodeMFID(encodedMfid);
+}
