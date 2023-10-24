@@ -9,8 +9,8 @@ Post new RSS feed items to Mastodon.
 Mastofeed requires that you use a Mastodon bot account and generate an access token for it.
 
 To do so, log into your Mastodon instance with your bot account, then go to Preferences > Development and create a new
-application with the `write:media` and `write:statuses` scopes. Take note of the access token generated for your
-application.
+application with the `read:accounts`, `read:statuses` and `write:statuses` scopes. Take note of the access token
+generated for your application.
 
 ## Installation
 
@@ -98,3 +98,9 @@ Then, to post all new RSS feed items to Mastodon from your bot account:
 ```js
 await feed.publish();
 ```
+
+## Privacy
+
+Mastofeed does not collect any analytics or telemetry data.
+
+The addition of the `mfid` query parameter in URLs is strictly used to prevent duplicate posts.
