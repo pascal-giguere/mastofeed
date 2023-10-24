@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 import { buildPost, buildToothText, Post, PostDef } from './utils/posts';
 import { fetchExistingTooths, initMastodonClient, postTooth } from './utils/mastodon';
 import { parseFeed } from './utils/rss';
-import { extractMFIDFromUrl } from './utils/mfid';
+import { extractUrlFromToothContent } from './utils/mfid';
 
 type MastofeedOptions = {
   mastodon: MastodonOptions;
@@ -34,7 +34,7 @@ export class Mastofeed {
 
   private fetchExistingMFIDs = async (): Promise<string[]> => {
     const existingTooths = await fetchExistingTooths(this.mastodonClient);
-    return existingTooths.map((tooth: Entity.Status) => extractMFIDFromUrl(tooth.uri));
+    return existingTooths.map((tooth: Entity.Status) => extractUrlFromToothContent(tooth.content));
   };
 
   private fetchFeedItems = async (): Promise<Item[]> => {

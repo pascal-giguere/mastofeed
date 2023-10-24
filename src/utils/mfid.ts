@@ -9,6 +9,14 @@ export function decodeMFID(encoded: string): string {
   return Buffer.from(encoded, 'base64').toString('utf-8');
 }
 
+export function extractUrlFromToothContent(content: string): string {
+  const match = content.match(/<a href=\"(.+?)\"/);
+  if (match?.length !== 2) {
+    throw new Error(`Failed to extract URL from tooth content '${content}'.`);
+  }
+  return match[1];
+}
+
 export function extractMFIDFromUrl(url: string): string {
   const encodedMfid = new URL(url).searchParams.get('mfid');
   if (!encodedMfid) {
