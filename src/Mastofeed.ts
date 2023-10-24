@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 import { buildPost, buildToothText, Post, PostDef } from './utils/posts';
 import { fetchExistingTooths, initMastodonClient, postTooth } from './utils/mastodon';
 import { parseFeed } from './utils/rss';
-import { extractUrlFromToothContent } from './utils/mfid';
+import { extractMFIDFromUrl, extractUrlFromToothContent } from './utils/mfid';
 
 type MastofeedOptions = {
   mastodon: MastodonOptions;
@@ -25,21 +25,38 @@ export class Mastofeed {
   }
 
   run = async (): Promise<void> => {
-    const fetchExistingMFIDs: string[] = await this.fetchExistingMFIDs();
-    console.log(`Fetched ${fetchExistingMFIDs.length} existing MFIDs:`, JSON.stringify(fetchExistingMFIDs));
+    const existingPostIDs: string[] = await this.fetchExistingPostIDs();
+    console.log(`Fetched ${existingPostIDs.length} existing post IDs from Mastodon:`, JSON.stringify(existingPostIDs));
+
     const feedItems: Item[] = await this.fetchFeedItems();
     const posts: Post[] = this.buildPosts(feedItems);
-    await this.postTooths(posts);
+    const postIDs: string[] = posts.map((post: Post) => post.id);
+    console.log(`Built ${postIDs.length} posts from RSS:`, JSON.stringify(postIDs));
+
+    const newPosts: Post[] = posts.filter((post: Post) => !existingPostIDs.includes(post.id));
+    const newPostIds: string[] = newPosts.map((post: Post) => post.id);
+    const filteredPostIds: string[] = postIDs.filter((postID: string) => !newPostIds.includes(postID));
+    console.log(`Filtered ${postIDs.length} existing posts:`, JSON.stringify(filteredPostIds));
+
+    if (!newPosts.length) {
+      console.log('No new posts to send.');
+      return;
+    }
+
+    console.log(`Posting ${newPostIds.length} new posts:`, JSON.stringify(newPostIds));
+    await this.postTooths(newPosts);
   };
 
-  private fetchExistingMFIDs = async (): Promise<string[]> => {
+  private fetchExistingPostIDs = async (): Promise<string[]> => {
     const existingTooths = await fetchExistingTooths(this.mastodonClient);
-    return existingTooths.map((tooth: Entity.Status) => extractUrlFromToothContent(tooth.content));
+    return existingTooths
+      .map((tooth: Entity.Status) => extractUrlFromToothContent(tooth.content))
+      .map((url: string) => extractMFIDFromUrl(url));
   };
 
   private fetchFeedItems = async (): Promise<Item[]> => {
     const feed: Output<Item> = await parseFeed(this.rssOptions.feedUrl);
-    console.log(`Fetched ${feed.items.length} feed items.`);
+    console.log(`Fetched ${feed.items.length} RSS feed items.`);
     return feed.items;
   };
 
