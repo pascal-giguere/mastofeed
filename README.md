@@ -60,8 +60,8 @@ const feed = new Mastofeed({
     feedUrl: 'https://www.lapresse.ca/manchettes/rss',
     postDef: {
       id: { path: 'guid' },
-      title: { path: 'title', regex: '(?!.*\\|) *(.+)?' },
       kicker: { path: 'title', regex: '^(.+) \\|', transforms: [new UppercaseTransform()] },
+      title: { path: 'title', regex: '(?!.*\\|) *(.+)?', transforms: [new BoldTransform()] },
       category: {
         path: 'link',
         regex: '^https:\\/\\/www\\.lapresse\\.ca\\/(\\w+)\\/',
@@ -83,7 +83,7 @@ const feed = new Mastofeed({
           }),
         ],
       },
-      description: { path: 'contentSnippet' },
+      description: { path: 'contentSnippet', transforms: [new QuotationMarksTransform(), new ItalicTransform()] },
       author: { path: 'dc:creator' },
       linkUrl: { path: 'link' },
     },

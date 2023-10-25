@@ -44,6 +44,18 @@ export class PreformattedTransform extends Transform {
   };
 }
 
+export class QuotationMarksTransform extends Transform {
+  override apply = (value: string): string => {
+    return `“${value}”`;
+  };
+}
+
+export class GuillemetsTransform extends Transform {
+  override apply = (value: string): string => {
+    return `« ${value} »`;
+  };
+}
+
 export class UppercaseTransform extends Transform {
   override apply = (value: string): string => {
     return value.toUpperCase();

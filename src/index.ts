@@ -7,6 +7,8 @@ export {
   BlockQuoteTransform,
   CodeTransform,
   PreformattedTransform,
+  QuotationMarksTransform,
+  GuillemetsTransform,
   UppercaseTransform,
   LowercaseTransform,
   CapitalizeTransform,
