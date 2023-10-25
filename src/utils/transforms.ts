@@ -2,6 +2,12 @@ export abstract class Transform {
   abstract apply(value: string): string;
 }
 
+export class BoldTransform extends Transform {
+  override apply = (value: string): string => {
+    return `<b>${value}</b>`;
+  };
+}
+
 export class UppercaseTransform extends Transform {
   override apply = (value: string): string => {
     return value.toUpperCase();
