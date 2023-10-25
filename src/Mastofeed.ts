@@ -26,24 +26,27 @@ export class Mastofeed {
 
   run = async (): Promise<void> => {
     const existingPostIDs: string[] = await this.fetchExistingPostIDs();
-    console.log(`Fetched ${existingPostIDs.length} existing post IDs from Mastodon:`, JSON.stringify(existingPostIDs));
+    console.debug(
+      `Fetched ${existingPostIDs.length} existing post IDs from Mastodon:`,
+      JSON.stringify(existingPostIDs),
+    );
 
     const feedItems: Item[] = await this.fetchFeedItems();
     const posts: Post[] = this.buildPosts(feedItems);
     const postIDs: string[] = posts.map((post: Post) => post.id);
-    console.log(`Built ${postIDs.length} posts from RSS:`, JSON.stringify(postIDs));
+    console.debug(`Built ${postIDs.length} posts from RSS:`, JSON.stringify(postIDs));
 
     const newPosts: Post[] = posts.filter((post: Post) => !existingPostIDs.includes(post.id));
     const newPostIds: string[] = newPosts.map((post: Post) => post.id);
     const filteredPostIds: string[] = postIDs.filter((postID: string) => !newPostIds.includes(postID));
-    console.log(`Filtered ${postIDs.length} existing posts:`, JSON.stringify(filteredPostIds));
+    console.debug(`Filtered ${postIDs.length} existing posts:`, JSON.stringify(filteredPostIds));
 
     if (!newPosts.length) {
       console.log('No new posts to send.');
       return;
     }
 
-    console.log(`Posting ${newPostIds.length} new posts:`, JSON.stringify(newPostIds));
+    console.debug(`Posting ${newPostIds.length} new posts:`, JSON.stringify(newPostIds));
     await this.postTooths(newPosts);
   };
 
