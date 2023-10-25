@@ -4,7 +4,43 @@ export abstract class Transform {
 
 export class BoldTransform extends Transform {
   override apply = (value: string): string => {
-    return `<b>${value}</b>`;
+    return `<strong>${value}</strong>`;
+  };
+}
+
+export class ItalicTransform extends Transform {
+  override apply = (value: string): string => {
+    return `<em>${value}</em>`;
+  };
+}
+
+export class UnderlinedTransform extends Transform {
+  override apply = (value: string): string => {
+    return `<u>${value}</u>`;
+  };
+}
+
+export class StrikethroughTransform extends Transform {
+  override apply = (value: string): string => {
+    return `<del>${value}</del>`;
+  };
+}
+
+export class BlockQuoteTransform extends Transform {
+  override apply = (value: string): string => {
+    return `<blockquote>${value}</blockquote>`;
+  };
+}
+
+export class CodeTransform extends Transform {
+  override apply = (value: string): string => {
+    return `<code>${value}</code>`;
+  };
+}
+
+export class PreformattedTransform extends Transform {
+  override apply = (value: string): string => {
+    return `<pre>${value}</pre>`;
   };
 }
 
