@@ -49,7 +49,14 @@ const feed = new Mastofeed({
 #### Advanced example:
 
 ```js
-import { Mastofeed, MapTransform, UppercaseTransform } from 'mastofeed';
+import {
+  Mastofeed,
+  UppercaseTransform,
+  BoldTransform,
+  MapTransform,
+  QuotationMarksTransform,
+  ItalicTransform,
+} from 'mastofeed';
 
 const feed = new Mastofeed({
   mastodon: {
@@ -83,7 +90,10 @@ const feed = new Mastofeed({
           }),
         ],
       },
-      description: { path: 'contentSnippet', transforms: [new QuotationMarksTransform(), new ItalicTransform()] },
+      description: {
+        path: 'contentSnippet',
+        transforms: [new QuotationMarksTransform(), new ItalicTransform()],
+      },
       author: { path: 'dc:creator' },
       linkUrl: { path: 'link' },
     },
