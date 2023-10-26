@@ -24,7 +24,7 @@ export class Mastofeed {
     this.mastodonClient = initMastodonClient(options.mastodon.instanceUrl, options.mastodon.accessToken);
   }
 
-  run = async (): Promise<void> => {
+  publish = async (): Promise<void> => {
     const existingPostIDs: string[] = await this.fetchExistingPostIDs();
     console.debug(
       `Fetched ${existingPostIDs.length} existing post IDs from Mastodon:`,
