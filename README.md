@@ -4,6 +4,10 @@ Post new RSS feed items to Mastodon.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+![Screenshot](./screenshot.png)
+
+*Automated tooth from [@lapresse@mastodon.quebec](https://mastodon.quebec/@lapresse) displayed in [Ivory](https://tapbots.com/ivory/mac/)*
+
 ## Prerequisites
 
 Mastofeed requires that you use a Mastodon bot account and generate an access token for it.
@@ -25,7 +29,7 @@ Instantiate a `Mastofeed` client, providing your Mastodon and RSS configuration.
 Use the `rss.postDef` property to define a mapping of RSS item attributes and customize the contents of your Mastodon
 posts.
 
-#### Basic example:
+#### Basic example
 
 ```js
 import { Mastofeed } from 'mastofeed';
@@ -46,7 +50,7 @@ const feed = new Mastofeed({
 });
 ```
 
-#### Advanced example:
+#### Advanced example
 
 ```js
 import {
@@ -108,6 +112,10 @@ Then, to post all new RSS feed items to Mastodon from your bot account:
 ```js
 await feed.publish();
 ```
+
+#### Full project example
+
+See [Mastodon Québec Bots](https://github.com/pascal-giguere/mastodon-quebec-bots) for a full example of a project using Mastofeed.
 
 ## Privacy
 
