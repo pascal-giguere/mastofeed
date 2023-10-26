@@ -1,5 +1,6 @@
 import { Item } from 'rss-parser';
 import get from 'lodash/get';
+import { decode } from 'html-entities';
 import { Transform } from './transforms';
 
 export type PropertyDefOptions = {
@@ -28,7 +29,7 @@ export class PropertyDef {
   };
 
   applyTransforms = (value: string): string => {
-    let transformedValue: string = value;
+    let transformedValue: string = decode(value);
     this.transforms?.forEach((transform: Transform) => {
       transformedValue = transform.apply(transformedValue);
     });
