@@ -30,7 +30,7 @@ export class Mastofeed {
     this.logger = new Logger(options.logging?.level, options.logging?.prefix);
   }
 
-  publish = async (): Promise<void> => {
+  sync = async (): Promise<void> => {
     const existingPostIDs: string[] = await this.fetchExistingPostIDs();
     this.logger.debug(
       `Fetched ${existingPostIDs.length} existing post IDs from Mastodon:`,

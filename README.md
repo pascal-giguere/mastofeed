@@ -114,7 +114,7 @@ const feed = new Mastofeed({
 Then, to post all new RSS feed items to Mastodon from your bot account:
 
 ```js
-await feed.publish();
+await feed.sync();
 ```
 
 #### Full project example
