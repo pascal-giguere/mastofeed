@@ -1,12 +1,16 @@
 # Mastofeed 📬
 
-Post new RSS feed items to Mastodon.
+A Node.js library to post RSS feed items to Mastodon.
+
+- Syncs new RSS feed items and posts them from a Mastodon bot account.
+- Outputs rich, highly-customizable posts. Extract and transform any RSS item attribute.
+- Type-safe and entirely built with TypeScript.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![Screenshot](./screenshot.png)
 
-*Automated tooth from [@lapresse@mastodon.quebec](https://mastodon.quebec/@lapresse) displayed in [Ivory](https://tapbots.com/ivory/mac/)*
+*Automated post from [@lapresse@mastodon.quebec](https://mastodon.quebec/@lapresse) displayed in [Ivory](https://tapbots.com/ivory/mac/)*
 
 ## Prerequisites
 

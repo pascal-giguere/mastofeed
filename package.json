@@ -1,7 +1,7 @@
 {
   "name": "mastofeed",
-  "version": "1.5.1",
-  "description": "Post new RSS feed items to Mastodon.",
+  "version": "1.5.2",
+  "description": "A Node.js / TypeScript library to post RSS feed items to Mastodon. Outputs rich, highly-customizable posts.",
   "author": "Pascal Giguère",
   "homepage": "https://github.com/pascal-giguere/mastofeed#readme",
   "license": "GPL-3.0-only",
@@ -10,7 +10,9 @@
     "rss",
     "feed",
     "bot",
-    "automation"
+    "automation",
+    "nodejs",
+    "typescript"
   ],
   "repository": {
     "type": "git",
