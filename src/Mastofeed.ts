@@ -86,7 +86,7 @@ export class Mastofeed {
     const feed: Output<Item> = await parseFeed(this.rssFeedUrl);
     this.logger.info(`Fetched ${feed.items.length} RSS feed items.`);
     this.logger.debug('Items:', JSON.stringify(feed.items, null, 2));
-    return feed.items.slice(0, GLOBAL_MAX_SYNCED_ITEMS);
+    return feed.items.slice(0, this.maxSyncedItems);
   };
 
   private buildPosts = (feedItems: Item[]): Post[] => {
