@@ -1,6 +1,7 @@
 import { Item } from 'rss-parser';
 import get from 'lodash/get';
 import { decode } from 'html-entities';
+import sanitizeHtml from 'sanitize-html';
 import { Transform } from './transforms';
 
 export type PropertyDefOptions = {
@@ -30,6 +31,7 @@ export class PropertyDef {
 
   applyTransforms = (value: string): string => {
     let transformedValue: string = decode(value);
+    transformedValue = sanitizeHtml(transformedValue, { allowedTags: [] });
     this.transforms?.forEach((transform: Transform) => {
       transformedValue = transform.apply(transformedValue);
     });
