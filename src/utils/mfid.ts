@@ -9,10 +9,10 @@ export function decodeMFID(encoded: string): string {
   return Buffer.from(encoded, 'base64').toString('utf-8');
 }
 
-export function extractUrlFromToothContent(content: string): string {
+export function extractUrlFromTootContent(content: string): string {
   const match = content.match(/<a href=\"(.+?)\"/);
   if (match?.length !== 2) {
-    throw new Error(`Failed to extract URL from tooth content '${content}'.`);
+    throw new Error(`Failed to extract URL from toot content '${content}'.`);
   }
   return match[1];
 }

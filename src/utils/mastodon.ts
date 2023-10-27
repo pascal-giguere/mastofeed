@@ -9,12 +9,12 @@ export class MastodonClient {
     this.megalodonClient = generator('mastodon', instanceUrl, accessToken) as Mastodon;
   }
 
-  async postTooth(text: string): Promise<Entity.Status> {
+  async postToot(text: string): Promise<Entity.Status> {
     const response = (await this.megalodonClient.postStatus(text, { visibility: 'public' })) as Response<Entity.Status>;
     return response.data;
   }
 
-  async fetchExistingTooths(): Promise<Entity.Status[]> {
+  async fetchExistingToots(): Promise<Entity.Status[]> {
     if (!this.botAccountId) {
       this.botAccountId = await this.fetchBotAccountId();
     }

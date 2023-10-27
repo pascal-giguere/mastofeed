@@ -2,10 +2,10 @@ import { Item } from 'rss-parser';
 import { PropertyDef, PropertyDefOptions } from './properties';
 import { encodeMFID } from './mfid';
 
-const MAX_TOOTH_CHARACTER_COUNT = 500;
+const MAX_TOOT_CHARACTER_COUNT = 500;
 
 // All links are counted as 23 characters by Mastodon: https://docs.joinmastodon.org/user/posting/#links
-const TOOTH_LINK_CHARACTER_COUNT = 23;
+const TOOT_LINK_CHARACTER_COUNT = 23;
 
 const REQUIRED_POST_PROPERTIES: (keyof Post)[] = ['id', 'title', 'linkUrl'];
 
@@ -43,9 +43,9 @@ export function buildPost(postDef: PostDef, item: Item): Post {
   return post as Post;
 }
 
-export function buildToothText(post: Post): string {
+export function buildTootText(post: Post): string {
   const descriptionCharacterBudget: number =
-    MAX_TOOTH_CHARACTER_COUNT -
+    MAX_TOOT_CHARACTER_COUNT -
     (post.kicker ? post.kicker.length + 1 : 0) -
     (post.title ? post.title.length : 0) -
     (post.author || post.category || post.linkUrl ? 1 : 0) -
@@ -53,7 +53,7 @@ export function buildToothText(post: Post): string {
     (post.author ? post.author.length : 0) -
     (post.author && post.category ? 3 : 0) -
     (post.category ? post.category.length : 0) -
-    (post.linkUrl ? TOOTH_LINK_CHARACTER_COUNT + 1 : 0) -
+    (post.linkUrl ? TOOT_LINK_CHARACTER_COUNT + 1 : 0) -
     3;
 
   const mustTrimDescription: boolean = !!post.description && post.description.length > descriptionCharacterBudget;

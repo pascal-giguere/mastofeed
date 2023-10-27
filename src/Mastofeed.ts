@@ -1,10 +1,10 @@
 import { Item, Output } from 'rss-parser';
 import { Entity } from 'megalodon';
 import { isAxiosError } from 'axios';
-import { buildPost, buildToothText, Post, PostDef } from './utils/posts';
+import { buildPost, buildTootText, Post, PostDef } from './utils/posts';
 import { MastodonClient } from './utils/mastodon';
 import { parseFeed } from './utils/rss';
-import { extractMFIDFromUrl, extractUrlFromToothContent } from './utils/mfid';
+import { extractMFIDFromUrl, extractUrlFromTootContent } from './utils/mfid';
 import { Logger, LogLevel } from './utils/logging';
 import { GLOBAL_MAX_SYNCED_ITEMS } from './constants';
 
@@ -58,7 +58,7 @@ export class Mastofeed {
     }
 
     this.logger.debug(`Posting ${newPostIds.length} new posts:`, JSON.stringify(newPostIds, null, 2));
-    await this.postTooths(newPosts);
+    await this.postToots(newPosts);
   };
 
   private computeMaxSyncedItems = (optionsMaxSyncedItems: number | undefined): number => {
@@ -76,9 +76,9 @@ export class Mastofeed {
   };
 
   private fetchExistingPostIDs = async (): Promise<string[]> => {
-    const existingTooths = await this.mastodonClient.fetchExistingTooths();
-    return existingTooths
-      .map((tooth: Entity.Status) => extractUrlFromToothContent(tooth.content))
+    const existingToots = await this.mastodonClient.fetchExistingToots();
+    return existingToots
+      .map((toot: Entity.Status) => extractUrlFromTootContent(toot.content))
       .map((url: string) => extractMFIDFromUrl(url));
   };
 
@@ -93,22 +93,22 @@ export class Mastofeed {
     return feedItems.map((item: Item) => buildPost(this.postDef, item));
   };
 
-  private postTooths = async (posts: Post[]): Promise<void> => {
+  private postToots = async (posts: Post[]): Promise<void> => {
     for (const post of posts) {
       const postNumber: number = posts.indexOf(post) + 1;
-      this.logger.info(`Sending tooth for post '${post.id}' (${postNumber} of ${posts.length})...`);
-      await this.tryPostTooth(post);
+      this.logger.info(`Sending toot for post '${post.id}' (${postNumber} of ${posts.length})...`);
+      await this.tryPostToot(post);
     }
   };
 
-  private tryPostTooth = async (post: Post): Promise<void> => {
-    const text: string = buildToothText(post);
+  private tryPostToot = async (post: Post): Promise<void> => {
+    const text: string = buildTootText(post);
     try {
-      const tooth: Entity.Status = await this.mastodonClient.postTooth(text);
-      this.logger.success(`Successfully sent tooth '${tooth.id}' for post '${post.id}'.`);
+      const toot: Entity.Status = await this.mastodonClient.postToot(text);
+      this.logger.success(`Successfully sent toot '${toot.id}' for post '${post.id}'.`);
     } catch (error) {
       if (isAxiosError(error)) {
-        this.logger.error(`Failed to send tooth for post '${post.id}': ${JSON.stringify(error.response?.data)}`);
+        this.logger.error(`Failed to send toot for post '${post.id}': ${JSON.stringify(error.response?.data)}`);
       } else {
         throw error;
       }

@@ -1,7 +1,7 @@
-import { buildToothText, Post } from '../../src/utils/posts';
+import { buildTootText, Post } from '../../src/utils/posts';
 
-describe("Build a tooth's text from a Post object", () => {
-  it('builds tooth text from a complete Post object', () => {
+describe("Build a toot's text from a Post object", () => {
+  it("builds a toot's text from a complete Post object", () => {
     const post: Post = {
       id: '123',
       title: 'Title',
@@ -11,7 +11,7 @@ describe("Build a tooth's text from a Post object", () => {
       author: 'Author',
       category: 'Category',
     };
-    expect(buildToothText(post)).toEqual(`Kicker
+    expect(buildTootText(post)).toEqual(`Kicker
 Title
 
 Description
@@ -20,13 +20,13 @@ Author — Category
 https://example.com/?mfid=MTIz`);
   });
 
-  it('builds tooth text from a partial Post object', () => {
+  it("builds a toot's text from a partial Post object", () => {
     const titleAndLink: Post = {
       id: '123',
       title: 'Title',
       linkUrl: 'https://example.com/',
     };
-    expect(buildToothText(titleAndLink)).toEqual(`Title
+    expect(buildTootText(titleAndLink)).toEqual(`Title
 
 https://example.com/?mfid=MTIz`);
 
@@ -36,7 +36,7 @@ https://example.com/?mfid=MTIz`);
       linkUrl: 'https://example.com/',
       kicker: 'Kicker',
     };
-    expect(buildToothText(titleKickerAndLink)).toEqual(`Kicker
+    expect(buildTootText(titleKickerAndLink)).toEqual(`Kicker
 Title
 
 https://example.com/?mfid=MTIz`);
@@ -47,7 +47,7 @@ https://example.com/?mfid=MTIz`);
       linkUrl: 'https://example.com/',
       description: 'Description',
     };
-    expect(buildToothText(titleDescriptionAndLink)).toEqual(`Title
+    expect(buildTootText(titleDescriptionAndLink)).toEqual(`Title
 
 Description
 
@@ -60,7 +60,7 @@ https://example.com/?mfid=MTIz`);
       description: 'Description',
       author: 'Author',
     };
-    expect(buildToothText(titleDescriptionAuthorAndLink)).toEqual(`Title
+    expect(buildTootText(titleDescriptionAuthorAndLink)).toEqual(`Title
 
 Description
 
@@ -74,7 +74,7 @@ https://example.com/?mfid=MTIz`);
       description: 'Description',
       category: 'Category',
     };
-    expect(buildToothText(titleDescriptionCategoryAndLink)).toEqual(`Title
+    expect(buildTootText(titleDescriptionCategoryAndLink)).toEqual(`Title
 
 Description
 
@@ -87,13 +87,13 @@ https://example.com/?mfid=MTIz`);
       author: 'Author',
       linkUrl: 'https://example.com/',
     };
-    expect(buildToothText(titleAuthorAndLink)).toEqual(`Title
+    expect(buildTootText(titleAuthorAndLink)).toEqual(`Title
 
 Author
 https://example.com/?mfid=MTIz`);
   });
 
-  it('builds tooth text with trimmed description if character count > 500', () => {
+  it("builds a toot's text with trimmed description if character count > 500", () => {
     const completePost: Post = {
       id: '123',
       title: 'Title',
@@ -104,7 +104,7 @@ https://example.com/?mfid=MTIz`);
       category: 'Category',
       linkUrl: 'https://example.com/',
     };
-    expect(buildToothText(completePost)).toEqual(`Kicker
+    expect(buildTootText(completePost)).toEqual(`Kicker
 Title
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est labor…
@@ -121,7 +121,7 @@ https://example.com/?mfid=MTIz`);
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
   };
-  expect(buildToothText(titleKickerDescriptionAndLink)).toEqual(`Kicker
+  expect(buildTootText(titleKickerDescriptionAndLink)).toEqual(`Kicker
 Title
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspic…
@@ -136,7 +136,7 @@ https://example.com/?mfid=MTIz`);
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
     author: 'Author',
   };
-  expect(buildToothText(titleDescriptionAuthorAndLink)).toEqual(`Title
+  expect(buildTootText(titleDescriptionAuthorAndLink)).toEqual(`Title
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspic…
 
@@ -151,7 +151,7 @@ https://example.com/?mfid=MTIz`);
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
     category: 'Category',
   };
-  expect(buildToothText(titleDescriptionCategoryAndLink)).toEqual(`Title
+  expect(buildTootText(titleDescriptionCategoryAndLink)).toEqual(`Title
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut persp…
 
