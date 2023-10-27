@@ -85,8 +85,11 @@ export class Mastofeed {
   private fetchFeedItems = async (): Promise<Item[]> => {
     const feed: Output<Item> = await parseFeed(this.rssFeedUrl);
     this.logger.info(`Fetched ${feed.items.length} RSS feed items.`);
-    this.logger.debug('Items:', JSON.stringify(feed.items, null, 2));
-    return feed.items.slice(0, this.maxSyncedItems);
+    const sortedItems = feed.items
+      .sort((a: Item, b: Item) => new Date(b.isoDate ?? 0).getTime() - new Date(a.isoDate ?? 0).getTime())
+      .slice(0, this.maxSyncedItems);
+    this.logger.debug('Sorted items:', JSON.stringify(sortedItems, null, 2));
+    return sortedItems;
   };
 
   private buildPosts = (feedItems: Item[]): Post[] => {
