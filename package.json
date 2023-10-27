@@ -1,9 +1,21 @@
 {
   "name": "mastofeed",
-  "version": "1.5.0",
+  "version": "1.5.1",
+  "description": "Post new RSS feed items to Mastodon.",
   "author": "Pascal Giguère",
-  "repository": "https://github.com/pascal-giguere/mastofeed",
+  "homepage": "https://github.com/pascal-giguere/mastofeed#readme",
   "license": "GPL-3.0-only",
+  "keywords": [
+    "mastodon",
+    "rss",
+    "feed",
+    "bot",
+    "automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pascal-giguere/mastofeed.git"
+  },
   "packageManager": "yarn@3.6.3",
   "engines": {
     "node": ">=18",
