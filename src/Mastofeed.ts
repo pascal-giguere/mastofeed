@@ -1,8 +1,8 @@
 import { Item, Output } from 'rss-parser';
-import { Entity, MegalodonInterface } from 'megalodon';
+import { Entity } from 'megalodon';
 import { isAxiosError } from 'axios';
 import { buildPost, buildToothText, Post, PostDef } from './utils/posts';
-import { fetchExistingTooths, initMastodonClient, postTooth } from './utils/mastodon';
+import { MastodonClient } from './utils/mastodon';
 import { parseFeed } from './utils/rss';
 import { extractMFIDFromUrl, extractUrlFromToothContent } from './utils/mfid';
 import { Logger, LogLevel } from './utils/logging';
@@ -21,12 +21,12 @@ type LoggingOptions = { level?: LogLevel; prefix?: string };
 
 export class Mastofeed {
   readonly rssOptions: RssOptions;
-  private readonly mastodonClient: MegalodonInterface;
+  private readonly mastodonClient: MastodonClient;
   private readonly logger: Logger;
 
   constructor(options: MastofeedOptions) {
     this.rssOptions = options.rss;
-    this.mastodonClient = initMastodonClient(options.mastodon.instanceUrl, options.mastodon.accessToken);
+    this.mastodonClient = new MastodonClient(options.mastodon.instanceUrl, options.mastodon.accessToken);
     this.logger = new Logger(options.logging?.level, options.logging?.prefix);
   }
 
@@ -57,7 +57,7 @@ export class Mastofeed {
   };
 
   private fetchExistingPostIDs = async (): Promise<string[]> => {
-    const existingTooths = await fetchExistingTooths(this.mastodonClient);
+    const existingTooths = await this.mastodonClient.fetchExistingTooths();
     return existingTooths
       .map((tooth: Entity.Status) => extractUrlFromToothContent(tooth.content))
       .map((url: string) => extractMFIDFromUrl(url));
@@ -85,7 +85,7 @@ export class Mastofeed {
   private tryPostTooth = async (post: Post): Promise<void> => {
     const text: string = buildToothText(post);
     try {
-      const tooth: Entity.Status = await postTooth(this.mastodonClient, text);
+      const tooth: Entity.Status = await this.mastodonClient.postTooth(text);
       this.logger.success(`Successfully sent tooth '${tooth.id}' for post '${post.id}'.`);
     } catch (error) {
       if (isAxiosError(error)) {

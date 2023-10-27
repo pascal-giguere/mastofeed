@@ -1,33 +1,36 @@
-import generator, { Entity, MegalodonInterface, Response } from 'megalodon';
+import generator, { Entity, Mastodon, Response } from 'megalodon';
 
-let botAccountId: string | undefined;
+export class MastodonClient {
+  private readonly megalodonClient: Mastodon;
+  private botAccountId: string | undefined;
 
-export function initMastodonClient(instanceUrl: string, accessToken: string): MegalodonInterface {
-  return generator('mastodon', instanceUrl, accessToken);
-}
-
-export async function postTooth(mastodonClient: MegalodonInterface, text: string): Promise<Entity.Status> {
-  const response = (await mastodonClient.postStatus(text, { visibility: 'public' })) as Response<Entity.Status>;
-  return response.data;
-}
-
-async function fetchCurrentUserAccount(mastodonClient: MegalodonInterface): Promise<Entity.Account> {
-  const response = await mastodonClient.verifyAccountCredentials();
-  return response.data;
-}
-
-async function fetchBotAccountId(mastodonClient: MegalodonInterface): Promise<string> {
-  const account = await fetchCurrentUserAccount(mastodonClient);
-  if (!account.bot) {
-    throw new Error('Mastodon access token must be for a bot user.');
+  constructor(instanceUrl: string, accessToken: string) {
+    this.megalodonClient = generator('mastodon', instanceUrl, accessToken) as Mastodon;
   }
-  return account.id;
-}
 
-export async function fetchExistingTooths(mastodonClient: MegalodonInterface): Promise<Entity.Status[]> {
-  if (!botAccountId) {
-    botAccountId = await fetchBotAccountId(mastodonClient);
+  async postTooth(text: string): Promise<Entity.Status> {
+    const response = (await this.megalodonClient.postStatus(text, { visibility: 'public' })) as Response<Entity.Status>;
+    return response.data;
   }
-  const response = await mastodonClient.getAccountStatuses(botAccountId, { limit: 40 });
-  return response.data;
+
+  async fetchExistingTooths(): Promise<Entity.Status[]> {
+    if (!this.botAccountId) {
+      this.botAccountId = await this.fetchBotAccountId();
+    }
+    const response = await this.megalodonClient.getAccountStatuses(this.botAccountId, { limit: 40, only_media: false });
+    return response.data;
+  }
+
+  private async fetchBotAccountId(): Promise<string> {
+    const account = await this.fetchCurrentUserAccount();
+    if (!account.bot) {
+      throw new Error('Mastodon access token must be for a bot user.');
+    }
+    return account.id;
+  }
+
+  private async fetchCurrentUserAccount(): Promise<Entity.Account> {
+    const response = await this.megalodonClient.verifyAccountCredentials();
+    return response.data;
+  }
 }
