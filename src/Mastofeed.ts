@@ -6,7 +6,7 @@ import { MastodonClient } from './utils/mastodon';
 import { parseFeed } from './utils/rss';
 import { extractMFIDFromUrl, extractUrlFromToothContent } from './utils/mfid';
 import { Logger, LogLevel } from './utils/logging';
-import { MAX_SYNCED_ITEMS } from './constants';
+import { GLOBAL_MAX_SYNCED_ITEMS } from './constants';
 
 type MastofeedOptions = {
   mastodon: MastodonOptions;
@@ -16,19 +16,23 @@ type MastofeedOptions = {
 
 type MastodonOptions = { instanceUrl: string; accessToken: string };
 
-type RssOptions = { feedUrl: string; postDef: PostDef };
+type RssOptions = { feedUrl: string; postDef: PostDef; maxSyncedItems?: number };
 
 type LoggingOptions = { level?: LogLevel; prefix?: string };
 
 export class Mastofeed {
-  readonly rssOptions: RssOptions;
   private readonly mastodonClient: MastodonClient;
   private readonly logger: Logger;
+  readonly rssFeedUrl: string;
+  readonly postDef: PostDef;
+  readonly maxSyncedItems: number;
 
   constructor(options: MastofeedOptions) {
-    this.rssOptions = options.rss;
     this.mastodonClient = new MastodonClient(options.mastodon.instanceUrl, options.mastodon.accessToken);
     this.logger = new Logger(options.logging?.level, options.logging?.prefix);
+    this.rssFeedUrl = options.rss.feedUrl;
+    this.postDef = options.rss.postDef;
+    this.maxSyncedItems = this.computeMaxSyncedItems(options.rss.maxSyncedItems);
   }
 
   sync = async (): Promise<void> => {
@@ -57,6 +61,20 @@ export class Mastofeed {
     await this.postTooths(newPosts);
   };
 
+  private computeMaxSyncedItems = (optionsMaxSyncedItems: number | undefined): number => {
+    let syncedItems: number;
+
+    if (optionsMaxSyncedItems && optionsMaxSyncedItems > GLOBAL_MAX_SYNCED_ITEMS) {
+      this.logger.warn(`Synced items is limited to ${GLOBAL_MAX_SYNCED_ITEMS}.`);
+      syncedItems = GLOBAL_MAX_SYNCED_ITEMS;
+    } else {
+      syncedItems = optionsMaxSyncedItems ?? GLOBAL_MAX_SYNCED_ITEMS;
+    }
+
+    this.logger.info(`Syncing batches of up to ${syncedItems} items.`);
+    return syncedItems;
+  };
+
   private fetchExistingPostIDs = async (): Promise<string[]> => {
     const existingTooths = await this.mastodonClient.fetchExistingTooths();
     return existingTooths
@@ -65,14 +83,14 @@ export class Mastofeed {
   };
 
   private fetchFeedItems = async (): Promise<Item[]> => {
-    const feed: Output<Item> = await parseFeed(this.rssOptions.feedUrl);
+    const feed: Output<Item> = await parseFeed(this.rssFeedUrl);
     this.logger.info(`Fetched ${feed.items.length} RSS feed items.`);
     this.logger.debug('Items:', JSON.stringify(feed.items, null, 2));
-    return feed.items.slice(0, MAX_SYNCED_ITEMS);
+    return feed.items.slice(0, GLOBAL_MAX_SYNCED_ITEMS);
   };
 
   private buildPosts = (feedItems: Item[]): Post[] => {
-    return feedItems.map((item: Item) => buildPost(this.rssOptions.postDef, item));
+    return feedItems.map((item: Item) => buildPost(this.postDef, item));
   };
 
   private postTooths = async (posts: Post[]): Promise<void> => {

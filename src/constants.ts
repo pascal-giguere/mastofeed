@@ -1,1 +1,1 @@
-export const MAX_SYNCED_ITEMS = 40;
+export const GLOBAL_MAX_SYNCED_ITEMS = 40;

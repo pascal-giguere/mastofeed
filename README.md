@@ -101,6 +101,7 @@ const feed = new Mastofeed({
       author: { path: 'dc:creator' },
       linkUrl: { path: 'link' },
     },
+    maxSyncedItems: 10,
   },
   logging: {
     level: 'DEBUG',
