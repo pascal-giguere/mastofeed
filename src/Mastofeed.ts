@@ -6,6 +6,7 @@ import { MastodonClient } from './utils/mastodon';
 import { parseFeed } from './utils/rss';
 import { extractMFIDFromUrl, extractUrlFromToothContent } from './utils/mfid';
 import { Logger, LogLevel } from './utils/logging';
+import { MAX_SYNCED_ITEMS } from './constants';
 
 type MastofeedOptions = {
   mastodon: MastodonOptions;
@@ -67,7 +68,7 @@ export class Mastofeed {
     const feed: Output<Item> = await parseFeed(this.rssOptions.feedUrl);
     this.logger.info(`Fetched ${feed.items.length} RSS feed items.`);
     this.logger.debug('Items:', JSON.stringify(feed.items, null, 2));
-    return feed.items;
+    return feed.items.slice(0, MAX_SYNCED_ITEMS);
   };
 
   private buildPosts = (feedItems: Item[]): Post[] => {

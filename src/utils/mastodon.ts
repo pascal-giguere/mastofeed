@@ -1,4 +1,5 @@
 import generator, { Entity, Mastodon, Response } from 'megalodon';
+import { MAX_SYNCED_ITEMS } from '../constants';
 
 export class MastodonClient {
   private readonly megalodonClient: Mastodon;
@@ -17,7 +18,10 @@ export class MastodonClient {
     if (!this.botAccountId) {
       this.botAccountId = await this.fetchBotAccountId();
     }
-    const response = await this.megalodonClient.getAccountStatuses(this.botAccountId, { limit: 40, only_media: false });
+    const response = await this.megalodonClient.getAccountStatuses(this.botAccountId, {
+      limit: MAX_SYNCED_ITEMS,
+      only_media: false,
+    });
     return response.data;
   }
 
