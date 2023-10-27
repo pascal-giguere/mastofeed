@@ -14,3 +14,4 @@ export {
   CapitalizeTransform,
   MapTransform,
 } from './utils/transforms';
+export { LogLevel } from './utils/logging';

@@ -102,6 +102,10 @@ const feed = new Mastofeed({
       linkUrl: { path: 'link' },
     },
   },
+  logging: {
+    level: 'DEBUG',
+    prefix: 'La Presse',
+  },
 });
 ```
 

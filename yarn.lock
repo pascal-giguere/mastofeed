@@ -1686,7 +1686,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0":
+"chalk@npm:^4.0.0, chalk@npm:^4.1.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -3597,6 +3597,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^6.6.0
     "@typescript-eslint/parser": ^6.6.0
     axios: ^1.5.1
+    chalk: ^4.1.2
     eslint: ^8.49.0
     html-entities: ^2.4.0
     jest: ^29.6.4
