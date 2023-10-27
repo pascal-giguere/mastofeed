@@ -8,7 +8,7 @@ A Node.js library to post RSS feed items to Mastodon.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-![Screenshot](./screenshot.png)
+<img src="./screenshot.png" width="598" alt="Screenshot" />
 
 *Automated post from [@lapresse@mastodon.quebec](https://mastodon.quebec/@lapresse) displayed in [Ivory](https://tapbots.com/ivory/mac/)*
 
