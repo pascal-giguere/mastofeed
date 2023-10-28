@@ -52,7 +52,7 @@ export class QuotationMarksTransform extends Transform {
 
 export class GuillemetsTransform extends Transform {
   override apply = (value: string): string => {
-    return `« ${value} »`;
+    return `« ${value} »`;
   };
 }
 
