@@ -10,11 +10,12 @@ export function decodeMFID(encoded: string): string {
 }
 
 export function extractUrlFromTootContent(content: string): string {
-  const match = content.match(/<a href=\"(.+?)\"/);
-  if (match?.length !== 2) {
+  const matches: RegExpMatchArray[] = Array.from(content.matchAll(/<a href="(.+?)"/g));
+  if (matches.length === 0 || matches[matches.length - 1].length !== 2) {
     throw new Error(`Failed to extract URL from toot content '${content}'.`);
   }
-  return match[1];
+  // If the toot contains multiple links, we want to extract the last one.
+  return matches[matches.length - 1][1];
 }
 
 export function extractMFIDFromUrl(url: string): string {
