@@ -1,4 +1,5 @@
 import generator, { Entity, Mastodon, Response } from 'megalodon';
+import { isAxiosError } from 'axios';
 import { GLOBAL_MAX_SYNCED_ITEMS } from '../constants';
 
 export class MastodonClient {
@@ -34,7 +35,14 @@ export class MastodonClient {
   }
 
   private async fetchCurrentUserAccount(): Promise<Entity.Account> {
-    const response = await this.megalodonClient.verifyAccountCredentials();
-    return response.data;
+    try {
+      const response = await this.megalodonClient.verifyAccountCredentials();
+      return response.data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        throw Error(`Error fetching current user account: ${JSON.stringify(error.response?.data)}`);
+      }
+      throw error;
+    }
   }
 }
