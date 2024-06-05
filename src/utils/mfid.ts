@@ -25,3 +25,9 @@ export function extractMFIDFromUrl(url: string): string {
   }
   return decodeMFID(encodedMfid);
 }
+
+export function addMFIDToUrl(url: string, id: string): string {
+  const urlObject = new URL(url);
+  urlObject.searchParams.set('mfid', encodeMFID(id));
+  return urlObject.toString();
+}
