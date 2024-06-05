@@ -1,4 +1,10 @@
-import { decodeMFID, encodeMFID, extractUrlFromTootContent, extractMFIDFromUrl } from '../../src/utils/mfid';
+import {
+  decodeMFID,
+  encodeMFID,
+  extractUrlFromTootContent,
+  extractMFIDFromUrl,
+  addMFIDToUrl,
+} from '../../src/utils/mfid';
 
 describe('Mastofeed identifier (MFID)', () => {
   it('encodes an MFID', () => {
@@ -19,9 +25,15 @@ describe('Mastofeed identifier (MFID)', () => {
     );
   });
 
-  it('extracts an MFID from an URL', () => {
+  it('adds an MFID to a URL', () => {
+    expect(addMFIDToUrl('https://www.example.com/test?utm=foo', '375c0c80e35f3c5494478cab7343fa13')).toEqual(
+      'https://www.example.com/test?utm=foo&mfid=Mzc1YzBjODBlMzVmM2M1NDk0NDc4Y2FiNzM0M2ZhMTM%3D',
+    );
+  });
+
+  it('extracts an MFID from a URL', () => {
     expect(
-      extractMFIDFromUrl('https://www.example.com/test?mfid=Mzc1YzBjODBlMzVmM2M1NDk0NDc4Y2FiNzM0M2ZhMTM=&oid=abc'),
+      extractMFIDFromUrl('https://www.example.com/test?utm=foo&mfid=Mzc1YzBjODBlMzVmM2M1NDk0NDc4Y2FiNzM0M2ZhMTM%3D'),
     ).toEqual('375c0c80e35f3c5494478cab7343fa13');
   });
 });

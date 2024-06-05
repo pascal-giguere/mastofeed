@@ -1,6 +1,6 @@
 import { Item } from 'rss-parser';
 import { PropertyDef, PropertyDefOptions } from './properties';
-import { addMFIDToUrl, encodeMFID } from './mfid';
+import { addMFIDToUrl } from './mfid';
 
 const MAX_TOOT_CHARACTER_COUNT = 500;
 
@@ -70,7 +70,6 @@ export function buildTootText(post: Post): string {
   if (post.author) text += post.author;
   if (post.author && post.category) text += ' — ';
   if (post.category) text += post.category;
-  if (post.linkUrl) text += `\n${post.linkUrl}?mfid=${encodeMFID(post.id)}`;
   if (post.linkUrl) text += `\n${addMFIDToUrl(post.linkUrl, post.id)}`;
   return text;
 }
