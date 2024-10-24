@@ -12,6 +12,7 @@ export {
   UppercaseTransform,
   LowercaseTransform,
   CapitalizeTransform,
+  AudioSnippetTransform,
   MapTransform,
 } from './utils/transforms';
 export { LogLevel } from './utils/logging';

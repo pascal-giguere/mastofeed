@@ -78,6 +78,35 @@ export class CapitalizeTransform extends Transform {
   };
 }
 
+export class AudioSnippetTransform extends Transform {
+  private readonly label: string;
+
+  constructor(label: string) {
+    super();
+    this.label = label;
+  }
+
+  override apply = (value: string): string => {
+    let durationSeconds: number | undefined;
+    try {
+      durationSeconds = parseFloat(value);
+    } catch (err) {
+      console.error(`Error parsing audio snippet duration '${value}'. Please provide a value in seconds.`, err);
+    }
+
+    if (typeof durationSeconds !== 'number' || isNaN(durationSeconds)) {
+      console.error(`Invalid audio duration '${value}'.`);
+      return '';
+    }
+
+    const durationMinutes: number = Math.floor(durationSeconds / 60);
+    const durationRemainingSeconds: number = Math.round(durationSeconds % 60);
+    const durationString: string = `${durationMinutes} min ${durationRemainingSeconds.toString().padStart(2, '0')} sec`;
+
+    return `${this.label} (${durationString})`;
+  };
+}
+
 export class MapTransform extends Transform {
   private readonly valueMap: Record<string, string>;
   private readonly strict: boolean;
