@@ -77,9 +77,16 @@ export class Mastofeed {
 
   private fetchExistingPostIDs = async (): Promise<string[]> => {
     const existingToots = await this.mastodonClient.fetchExistingToots();
-    return existingToots
-      .map((toot: Entity.Status) => extractUrlFromTootContent(toot.content))
-      .map((url: string) => extractMFIDFromUrl(url));
+    return existingToots.reduce((acc: string[], toot: Entity.Status) => {
+      try {
+        const url: string = extractUrlFromTootContent(toot.content);
+        const mfid: string = extractMFIDFromUrl(url);
+        acc.push(mfid);
+      } catch (err) {
+        console.error(`Failed to extract MFID from toot '${toot.id}': ${err}`);
+      }
+      return acc;
+    }, []);
   };
 
   private fetchFeedItems = async (): Promise<Item[]> => {
