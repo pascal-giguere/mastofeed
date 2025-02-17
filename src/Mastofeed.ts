@@ -100,7 +100,15 @@ export class Mastofeed {
   };
 
   private buildPosts = (feedItems: Item[]): Post[] => {
-    return feedItems.map((item: Item) => buildPost(this.postDef, item));
+    return feedItems.reduce((acc: Post[], item: Item) => {
+      try {
+        const post: Post = buildPost(this.postDef, item);
+        acc.push(post);
+      } catch (err) {
+        console.error(`Failed to build post from RSS item: ${err}`);
+      }
+      return acc;
+    }, []);
   };
 
   private postToots = async (posts: Post[]): Promise<void> => {
