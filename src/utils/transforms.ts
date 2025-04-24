@@ -78,6 +78,32 @@ export class CapitalizeTransform extends Transform {
   };
 }
 
+export class PrefixTransform extends Transform {
+  private readonly prefix: string;
+
+  constructor(prefix: string) {
+    super();
+    this.prefix = prefix;
+  }
+
+  override apply = (value: string): string => {
+    return `${this.prefix}${value}`;
+  };
+}
+
+export class SuffixTransform extends Transform {
+  private readonly suffix: string;
+
+  constructor(suffix: string) {
+    super();
+    this.suffix = suffix;
+  }
+
+  override apply = (value: string): string => {
+    return `${value}${this.suffix}`;
+  };
+}
+
 export class AudioSnippetTransform extends Transform {
   private readonly label: string;
 

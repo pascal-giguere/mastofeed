@@ -12,6 +12,8 @@ export {
   UppercaseTransform,
   LowercaseTransform,
   CapitalizeTransform,
+  PrefixTransform,
+  SuffixTransform,
   AudioSnippetTransform,
   MapTransform,
 } from './utils/transforms';
