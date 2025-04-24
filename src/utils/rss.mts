@@ -1,4 +1,4 @@
-import Parser, { Output, Item } from 'rss-parser';
+import Parser, { Output, Item } from "rss-parser";
 
 const rssParser = new Parser();
 

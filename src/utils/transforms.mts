@@ -72,9 +72,9 @@ export class CapitalizeTransform extends Transform {
   override apply = (value: string): string => {
     return value
       .toLowerCase()
-      .split(' ')
+      .split(" ")
       .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .join(" ");
   };
 }
 
@@ -120,14 +120,14 @@ export class AudioSnippetTransform extends Transform {
       console.error(`Error parsing audio snippet duration '${value}'. Please provide a value in seconds.`, err);
     }
 
-    if (typeof durationSeconds !== 'number' || isNaN(durationSeconds)) {
+    if (typeof durationSeconds !== "number" || isNaN(durationSeconds)) {
       console.error(`Invalid audio duration '${value}'.`);
-      return '';
+      return "";
     }
 
     const durationMinutes: number = Math.floor(durationSeconds / 60);
     const durationRemainingSeconds: number = Math.round(durationSeconds % 60);
-    const durationString: string = `${durationMinutes} min ${durationRemainingSeconds.toString().padStart(2, '0')} sec`;
+    const durationString: string = `${durationMinutes} min ${durationRemainingSeconds.toString().padStart(2, "0")} sec`;
 
     return `${this.label} (${durationString})`;
   };

@@ -1,13 +1,13 @@
-import { Item } from 'rss-parser';
-import { PropertyDef, PropertyDefOptions } from './properties';
-import { addMFIDToUrl } from './mfid';
+import { Item } from "rss-parser";
+import { PropertyDef, PropertyDefOptions } from "./properties.mjs";
+import { addMFIDToUrl } from "./mfid.mjs";
 
 const MAX_TOOT_CHARACTER_COUNT = 500;
 
 // All links are counted as 23 characters by Mastodon: https://docs.joinmastodon.org/user/posting/#links
 const TOOT_LINK_CHARACTER_COUNT = 23;
 
-const REQUIRED_POST_PROPERTIES: (keyof Post)[] = ['id', 'title', 'linkUrl'];
+const REQUIRED_POST_PROPERTIES: (keyof Post)[] = ["id", "title", "linkUrl"];
 
 export type PostDef = { [_ in keyof Post]: PropertyDefOptions };
 
@@ -58,17 +58,17 @@ export function buildTootText(post: Post): string {
 
   const mustTrimDescription: boolean = !!post.description && post.description.length > descriptionCharacterBudget;
   const trimmedDescription: string | undefined = mustTrimDescription
-    ? post.description!.slice(0, descriptionCharacterBudget) + '…'
+    ? post.description!.slice(0, descriptionCharacterBudget) + "…"
     : post.description;
 
-  let text = '';
+  let text = "";
   if (post.kicker) text += `${post.kicker}\n`;
   if (post.title) text += `${post.title}`;
   if (trimmedDescription) text += `\n\n${trimmedDescription}`;
-  if (post.author || post.category || post.linkUrl) text += '\n';
-  if (post.author || post.category) text += '\n';
+  if (post.author || post.category || post.linkUrl) text += "\n";
+  if (post.author || post.category) text += "\n";
   if (post.author) text += post.author;
-  if (post.author && post.category) text += ' — ';
+  if (post.author && post.category) text += " — ";
   if (post.category) text += post.category;
   if (post.linkUrl) text += `\n${addMFIDToUrl(post.linkUrl, post.id)}`;
   return text;

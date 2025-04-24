@@ -2,11 +2,11 @@
 // It allows Mastofeed to keep track of which RSS items have already been posted to Mastodon.
 
 export function encodeMFID(decoded: string): string {
-  return Buffer.from(decoded).toString('base64');
+  return Buffer.from(decoded).toString("base64");
 }
 
 export function decodeMFID(encoded: string): string {
-  return Buffer.from(encoded, 'base64').toString('utf-8');
+  return Buffer.from(encoded, "base64").toString("utf-8");
 }
 
 export function extractUrlFromTootContent(content: string): string {
@@ -19,7 +19,7 @@ export function extractUrlFromTootContent(content: string): string {
 }
 
 export function extractMFIDFromUrl(url: string): string {
-  const encodedMfid = new URL(url).searchParams.get('mfid');
+  const encodedMfid = new URL(url).searchParams.get("mfid");
   if (!encodedMfid) {
     throw new Error(`Failed to extract MFID from URL '${url}'.`);
   }
@@ -28,6 +28,6 @@ export function extractMFIDFromUrl(url: string): string {
 
 export function addMFIDToUrl(url: string, id: string): string {
   const urlObject = new URL(url);
-  urlObject.searchParams.set('mfid', encodeMFID(id));
+  urlObject.searchParams.set("mfid", encodeMFID(id));
   return urlObject.toString();
 }

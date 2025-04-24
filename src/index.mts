@@ -1,4 +1,4 @@
-export { Mastofeed } from './Mastofeed';
+export { Mastofeed } from "./Mastofeed.mjs";
 export {
   BoldTransform,
   ItalicTransform,
@@ -16,5 +16,5 @@ export {
   SuffixTransform,
   AudioSnippetTransform,
   MapTransform,
-} from './utils/transforms';
-export { LogLevel } from './utils/logging';
+} from "./utils/transforms.mjs";
+export { LogLevel } from "./utils/logging.mjs";

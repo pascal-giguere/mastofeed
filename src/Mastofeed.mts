@@ -1,12 +1,12 @@
-import { Item, Output } from 'rss-parser';
-import { Entity } from 'megalodon';
-import { isAxiosError } from 'axios';
-import { buildPost, buildTootText, Post, PostDef } from './utils/posts';
-import { MastodonClient } from './utils/mastodon';
-import { parseFeed } from './utils/rss';
-import { extractMFIDFromUrl, extractUrlFromTootContent } from './utils/mfid';
-import { Logger, LogLevel } from './utils/logging';
-import { GLOBAL_MAX_SYNCED_ITEMS } from './constants';
+import { Item, Output } from "rss-parser";
+import { Entity } from "megalodon";
+import { isAxiosError } from "axios";
+import { buildPost, buildTootText, Post, PostDef } from "./utils/posts.mjs";
+import { MastodonClient } from "./utils/mastodon.mjs";
+import { parseFeed } from "./utils/rss.mjs";
+import { extractMFIDFromUrl, extractUrlFromTootContent } from "./utils/mfid.mjs";
+import { Logger, LogLevel } from "./utils/logging.mjs";
+import { GLOBAL_MAX_SYNCED_ITEMS } from "./constants.mjs";
 
 type MastofeedOptions = {
   mastodon: MastodonOptions;
@@ -53,7 +53,7 @@ export class Mastofeed {
     this.logger.debug(`Filtered ${postIDs.length} existing posts:`, JSON.stringify(filteredPostIds, null, 2));
 
     if (!newPosts.length) {
-      this.logger.info('No new posts to send.');
+      this.logger.info("No new posts to send.");
       return;
     }
 
@@ -95,7 +95,7 @@ export class Mastofeed {
     const sortedItems = feed.items
       .sort((a: Item, b: Item) => new Date(b.isoDate ?? 0).getTime() - new Date(a.isoDate ?? 0).getTime())
       .slice(0, this.maxSyncedItems);
-    this.logger.debug('Sorted items:', JSON.stringify(sortedItems, null, 2));
+    this.logger.debug("Sorted items:", JSON.stringify(sortedItems, null, 2));
     return sortedItems;
   };
 

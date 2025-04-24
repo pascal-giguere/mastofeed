@@ -1,17 +1,18 @@
-import generator, { Entity, Mastodon, Response } from 'megalodon';
-import { isAxiosError } from 'axios';
-import { GLOBAL_MAX_SYNCED_ITEMS } from '../constants';
+import generator, { Entity, Mastodon, Response } from "megalodon";
+import { isAxiosError } from "axios";
+import { GLOBAL_MAX_SYNCED_ITEMS } from "../constants.mjs";
 
 export class MastodonClient {
   private readonly megalodonClient: Mastodon;
   private botAccountId: string | undefined;
 
   constructor(instanceUrl: string, accessToken: string) {
-    this.megalodonClient = generator('mastodon', instanceUrl, accessToken) as Mastodon;
+    // @ts-expect-error TS2349 - Workaround for the type error in megalodon
+    this.megalodonClient = generator("mastodon", instanceUrl, accessToken);
   }
 
   async postToot(text: string): Promise<Entity.Status> {
-    const response = (await this.megalodonClient.postStatus(text, { visibility: 'public' })) as Response<Entity.Status>;
+    const response = (await this.megalodonClient.postStatus(text, { visibility: "public" })) as Response<Entity.Status>;
     return response.data;
   }
 
@@ -29,7 +30,7 @@ export class MastodonClient {
   private async fetchBotAccountId(): Promise<string> {
     const account = await this.fetchCurrentUserAccount();
     if (!account.bot) {
-      throw new Error('Mastodon access token must be for a bot user.');
+      throw new Error("Mastodon access token must be for a bot user.");
     }
     return account.id;
   }

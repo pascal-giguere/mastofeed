@@ -1,8 +1,8 @@
-import { Item } from 'rss-parser';
-import { getProperty } from 'dot-prop';
-import { decode } from 'html-entities';
-import sanitizeHtml from 'sanitize-html';
-import { Transform } from './transforms';
+import { Item } from "rss-parser";
+import { getProperty } from "dot-prop";
+import { decode } from "html-entities";
+import sanitizeHtml from "sanitize-html";
+import { Transform } from "./transforms.mjs";
 
 export type PropertyDefOptions = {
   path: string;

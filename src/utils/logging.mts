@@ -1,11 +1,11 @@
-import chalk from 'chalk';
+import chalk from "chalk";
 
 export enum LogLevel {
-  Debug = 'DEBUG',
-  Info = 'INFO',
-  Success = 'SUCCESS',
-  Warning = 'WARNING',
-  Error = 'ERROR',
+  Debug = "DEBUG",
+  Info = "INFO",
+  Success = "SUCCESS",
+  Warning = "WARNING",
+  Error = "ERROR",
 }
 
 const LogLevelValues: { [_ in LogLevel]: number } = {
@@ -22,7 +22,7 @@ export class Logger {
 
   constructor(minimumLogLevel: LogLevel = LogLevel.Info, tag?: string) {
     this.minimumLogLevel = minimumLogLevel;
-    this.tag = tag ?? 'Mastofeed';
+    this.tag = tag ?? "Mastofeed";
   }
 
   debug = (msg: string, ...params: unknown[]): void => {
