@@ -7,8 +7,7 @@ export class MastodonClient {
   private botAccountId: string | undefined;
 
   constructor(instanceUrl: string, accessToken: string) {
-    // @ts-expect-error TS2349 - Workaround for the type error in megalodon
-    this.megalodonClient = generator("mastodon", instanceUrl, accessToken);
+    this.megalodonClient = generator("mastodon", instanceUrl, accessToken) as Mastodon;
   }
 
   async postToot(text: string): Promise<Entity.Status> {
