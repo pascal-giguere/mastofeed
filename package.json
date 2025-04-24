@@ -1,6 +1,6 @@
 {
   "name": "mastofeed",
-  "version": "1.8.0",
+  "version": "1.7.0",
   "description": "A Node.js / TypeScript library to post RSS feed items to Mastodon. Outputs rich, highly-customizable posts.",
   "author": "Pascal Giguère",
   "homepage": "https://github.com/pascal-giguere/mastofeed#readme",
@@ -18,11 +18,11 @@
     "type": "git",
     "url": "https://github.com/pascal-giguere/mastofeed.git"
   },
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.2.2",
   "engines": {
     "node": ">=18",
     "npm": "please-use-yarn",
-    "yarn": "4.9.1"
+    "yarn": "4.2.2"
   },
   "main": "dist/index.js",
   "files": [
@@ -35,24 +35,25 @@
     "test:unit": "jest --config test/unit/jest.config.ts"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "@types/node": "^18.19.86",
-    "@types/sanitize-html": "^2.15.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^18.19.34",
+    "@types/sanitize-html": "^2.11.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.57.1",
     "jest": "^29.7.0",
-    "prettier": "^3.5.3",
-    "ts-jest": "^29.3.2",
+    "prettier": "^3.3.1",
+    "ts-jest": "^29.1.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
-    "axios": "^1.8.4",
+    "axios": "^1.7.2",
     "chalk": "^4.1.2",
-    "html-entities": "^2.6.0",
+    "dot-prop": "^9.0.0",
+    "html-entities": "^2.5.2",
     "megalodon": "^8.1.6",
     "rss-parser": "^3.13.0",
-    "sanitize-html": "^2.16.0"
+    "sanitize-html": "^2.13.0"
   }
 }

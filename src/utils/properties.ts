@@ -1,5 +1,5 @@
 import { Item } from 'rss-parser';
-import get from 'lodash/get';
+import { getProperty } from 'dot-prop';
 import { decode } from 'html-entities';
 import sanitizeHtml from 'sanitize-html';
 import { Transform } from './transforms';
@@ -22,7 +22,7 @@ export class PropertyDef {
   }
 
   extractValue = (item: Item): string | undefined => {
-    const value: string | undefined = get(item, this.path);
+    const value = getProperty<Item, string>(item, this.path) as string | undefined;
     if (value && this.regex) {
       return value.match(this.regex)?.[1];
     }
