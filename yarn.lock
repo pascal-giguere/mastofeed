@@ -937,9 +937,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pascal-giguere/megalodon@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "@pascal-giguere/megalodon@npm:10.2.0"
+"@pascal-giguere/megalodon@npm:^10.2.2":
+  version: 10.2.2
+  resolution: "@pascal-giguere/megalodon@npm:10.2.2"
   dependencies:
     "@badgateway/oauth2-client": "npm:^2.4.2"
     "@types/ws": "npm:^8.5.13"
@@ -951,7 +951,7 @@ __metadata:
     object-assign-deep: "npm:^0.4.0"
     uuid: "npm:^11.0.3"
     ws: "npm:8.18.0"
-  checksum: 10c0/26dfefd7e75c5c2ba4429d0c8239706895c8deaf6e64a88d5591cdf5f0889c961beb34fa88f6ed608d83d6530dabbc9c51f2fb02e72d25a2e8ef1c2a2730b6d3
+  checksum: 10c0/4e1a189b653a71191c4dd94f85c3139d5ca0d389877a7e7b95ecef8bf53125e636922ea9f5a01396225bed65c191ba5d793668801bd533a032aa70dad955abd4
   languageName: node
   linkType: hard
 
@@ -4441,7 +4441,7 @@ __metadata:
   resolution: "mastofeed@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.25.1"
-    "@pascal-giguere/megalodon": "npm:^10.2.0"
+    "@pascal-giguere/megalodon": "npm:^10.2.2"
     "@types/jest": "npm:^29.5.14"
     "@types/node": "npm:^22.14.1"
     "@types/sanitize-html": "npm:^2.15.0"
