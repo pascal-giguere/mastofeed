@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "module": "es2022",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "types": ["node"],
-    "moduleResolution": "node",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,

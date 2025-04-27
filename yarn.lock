@@ -937,6 +937,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pascal-giguere/megalodon@npm:^10.2.0":
+  version: 10.2.0
+  resolution: "@pascal-giguere/megalodon@npm:10.2.0"
+  dependencies:
+    "@badgateway/oauth2-client": "npm:^2.4.2"
+    "@types/ws": "npm:^8.5.13"
+    axios: "npm:1.7.9"
+    dayjs: "npm:^1.11.13"
+    events: "npm:^3.3.0"
+    form-data: "npm:^4.0.1"
+    isomorphic-ws: "npm:^5.0.0"
+    object-assign-deep: "npm:^0.4.0"
+    uuid: "npm:^11.0.3"
+    ws: "npm:8.18.0"
+  checksum: 10c0/26dfefd7e75c5c2ba4429d0c8239706895c8deaf6e64a88d5591cdf5f0889c961beb34fa88f6ed608d83d6530dabbc9c51f2fb02e72d25a2e8ef1c2a2730b6d3
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -4423,6 +4441,7 @@ __metadata:
   resolution: "mastofeed@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.25.1"
+    "@pascal-giguere/megalodon": "npm:^10.2.0"
     "@types/jest": "npm:^29.5.14"
     "@types/node": "npm:^22.14.1"
     "@types/sanitize-html": "npm:^2.15.0"
@@ -4437,7 +4456,6 @@ __metadata:
     globals: "npm:^16.0.0"
     html-entities: "npm:^2.6.0"
     jest: "npm:^29.7.0"
-    megalodon: "npm:^10.1.1"
     prettier: "npm:^3.5.3"
     rss-parser: "npm:^3.13.0"
     sanitize-html: "npm:^2.16.0"
@@ -4453,24 +4471,6 @@ __metadata:
   version: 1.1.0
   resolution: "math-intrinsics@npm:1.1.0"
   checksum: 10c0/7579ff94e899e2f76ab64491d76cf606274c874d8f2af4a442c016bd85688927fcfca157ba6bf74b08e9439dc010b248ce05b96cc7c126a354c3bae7fcb48b7f
-  languageName: node
-  linkType: hard
-
-"megalodon@npm:^10.1.1":
-  version: 10.1.1
-  resolution: "megalodon@npm:10.1.1"
-  dependencies:
-    "@badgateway/oauth2-client": "npm:^2.4.2"
-    "@types/ws": "npm:^8.5.13"
-    axios: "npm:1.7.9"
-    dayjs: "npm:^1.11.13"
-    events: "npm:^3.3.0"
-    form-data: "npm:^4.0.1"
-    isomorphic-ws: "npm:^5.0.0"
-    object-assign-deep: "npm:^0.4.0"
-    uuid: "npm:^11.0.3"
-    ws: "npm:8.18.0"
-  checksum: 10c0/4d099c6c1c8deeb0f36013fa7d681c29fe0fece58b7e84a2fd27496e574c6e65ca34a5a38bd6d3711b9d5ad5a715f074d14f74502023f6062d000e0cd3d8f913
   languageName: node
   linkType: hard
 

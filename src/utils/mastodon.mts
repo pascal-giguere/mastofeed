@@ -1,4 +1,4 @@
-import generator, { Entity, Mastodon, Response } from "megalodon";
+import generator, { type Entity, type Mastodon, type Response } from "@pascal-giguere/megalodon";
 import { isAxiosError } from "axios";
 import { GLOBAL_MAX_SYNCED_ITEMS } from "../constants.mjs";
 

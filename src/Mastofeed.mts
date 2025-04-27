@@ -1,5 +1,5 @@
 import { Item, Output } from "rss-parser";
-import { Entity } from "megalodon";
+import { type Entity } from "@pascal-giguere/megalodon";
 import { isAxiosError } from "axios";
 import { buildPost, buildTootText, Post, PostDef } from "./utils/posts.mjs";
 import { MastodonClient } from "./utils/mastodon.mjs";
