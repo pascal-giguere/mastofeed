@@ -10,7 +10,9 @@ A Node.js library to post RSS feed items to Mastodon.
 
 <img src="./screenshot.png" width="598" alt="Screenshot" />
 
-*Automated post from [@lapresse@mastodon.quebec](https://mastodon.quebec/@lapresse) displayed in [Ivory](https://tapbots.com/ivory/mac/)*
+_Automated post from [@lapresse@mastodon.quebec](https://mastodon.quebec/@lapresse) displayed in [Ivory](https://tapbots.com/ivory/mac/)_
+
+**Note:** This project is not related to the [MastoFeed](https://mastofeed.org/) (capital F) service.
 
 ## Prerequisites
 
@@ -36,19 +38,19 @@ posts.
 #### Basic example
 
 ```js
-import { Mastofeed } from 'mastofeed';
+import { Mastofeed } from "mastofeed";
 
 const feed = new Mastofeed({
   mastodon: {
-    instanceUrl: 'https://mastodon.quebec',
+    instanceUrl: "https://mastodon.quebec",
     accessToken: process.env.MASTODON_ACCESS_TOKEN,
   },
   rss: {
-    feedUrl: 'https://www.lapresse.ca/manchettes/rss',
+    feedUrl: "https://www.lapresse.ca/manchettes/rss",
     postDef: {
-      id: { path: 'guid' },
-      title: { path: 'title' },
-      linkUrl: { path: 'link' },
+      id: { path: "guid" },
+      title: { path: "title" },
+      linkUrl: { path: "link" },
     },
   },
 });
@@ -64,52 +66,52 @@ import {
   MapTransform,
   QuotationMarksTransform,
   ItalicTransform,
-} from 'mastofeed';
+} from "mastofeed";
 
 const feed = new Mastofeed({
   mastodon: {
-    instanceUrl: 'https://mastodon.quebec',
+    instanceUrl: "https://mastodon.quebec",
     accessToken: process.env.MASTODON_ACCESS_TOKEN,
   },
   rss: {
-    feedUrl: 'https://www.lapresse.ca/manchettes/rss',
+    feedUrl: "https://www.lapresse.ca/manchettes/rss",
     postDef: {
-      id: { path: 'guid' },
-      kicker: { path: 'title', regex: '^(.+) \\|', transforms: [new UppercaseTransform()] },
-      title: { path: 'title', regex: '(?!.*\\|) *(.+)?', transforms: [new BoldTransform()] },
+      id: { path: "guid" },
+      kicker: { path: "title", regex: "^(.+) \\|", transforms: [new UppercaseTransform()] },
+      title: { path: "title", regex: "(?!.*\\|) *(.+)?", transforms: [new BoldTransform()] },
       category: {
-        path: 'link',
-        regex: '^https:\\/\\/www\\.lapresse\\.ca\\/(\\w+)\\/',
+        path: "link",
+        regex: "^https:\\/\\/www\\.lapresse\\.ca\\/(\\w+)\\/",
         transforms: [
           new MapTransform({
-            actualites: 'Actualités',
-            affaires: 'Affaires',
-            auto: 'Auto',
-            arts: 'Arts',
-            cinema: 'Cinéma',
-            contexte: 'Contexte',
-            debats: 'Débats',
-            gourmand: 'Gourmand',
-            international: 'International',
-            maison: 'Maison',
-            societe: 'Société',
-            sports: 'Sports',
-            voyage: 'Voyage',
+            actualites: "Actualités",
+            affaires: "Affaires",
+            auto: "Auto",
+            arts: "Arts",
+            cinema: "Cinéma",
+            contexte: "Contexte",
+            debats: "Débats",
+            gourmand: "Gourmand",
+            international: "International",
+            maison: "Maison",
+            societe: "Société",
+            sports: "Sports",
+            voyage: "Voyage",
           }),
         ],
       },
       description: {
-        path: 'contentSnippet',
+        path: "contentSnippet",
         transforms: [new QuotationMarksTransform(), new ItalicTransform()],
       },
-      author: { path: 'dc:creator' },
-      linkUrl: { path: 'link' },
+      author: { path: "dc:creator" },
+      linkUrl: { path: "link" },
     },
     maxSyncedItems: 10,
   },
   logging: {
-    level: 'DEBUG',
-    prefix: 'La Presse',
+    level: "DEBUG",
+    prefix: "La Presse",
   },
 });
 ```
