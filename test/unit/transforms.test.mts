@@ -115,31 +115,27 @@ describe("Transforms", () => {
     expect(nonStrict.apply("c")).toEqual("c");
   });
 
-  describe("StripUtmParamsTransform", () => {
-    const transformer = new StripUtmParamsTransform();
+  it("StripUtmParamsTransform removes utm_* query parameters and keeps other params", () => {
+    const input = "https://example.com/path?utm_source=google&utm_medium=cpc&q=search&utm_campaign=summer";
+    const out = new StripUtmParamsTransform().apply(input);
+    expect(out).toEqual("https://example.com/path?q=search");
+  });
 
-    it("removes utm_* query parameters and keeps other params", () => {
-      const input = "https://example.com/path?utm_source=google&utm_medium=cpc&q=search&utm_campaign=summer";
-      const out = transformer.apply(input);
-      expect(out).toEqual("https://example.com/path?q=search");
-    });
+  it("StripUtmParamsTransform returns the same URL when there are no utm_ parameters", () => {
+    const input = "https://example.com/path?q=search";
+    const out = new StripUtmParamsTransform().apply(input);
+    expect(out).toEqual("https://example.com/path?q=search");
+  });
 
-    it("returns the same URL when there are no utm_ parameters", () => {
-      const input = "https://example.com/path?q=search";
-      const out = transformer.apply(input);
-      expect(out).toEqual("https://example.com/path?q=search");
-    });
+  it("StripUtmParamsTransform removes only-utm query parameters leaving a clean origin/path", () => {
+    const input = "https://example.com/?utm_source=foo";
+    const out = new StripUtmParamsTransform().apply(input);
+    expect(out).toEqual("https://example.com/");
+  });
 
-    it("removes only-utm query parameters leaving a clean origin/path", () => {
-      const input = "https://example.com/?utm_source=foo";
-      const out = transformer.apply(input);
-      expect(out).toEqual("https://example.com/");
-    });
-
-    it("returns the original value for non-URL strings", () => {
-      const input = "not-a-url";
-      const out = transformer.apply(input);
-      expect(out).toEqual(input);
-    });
+  it("StripUtmParamsTransform returns the original value for non-URL strings", () => {
+    const input = "not-a-url";
+    const out = new StripUtmParamsTransform().apply(input);
+    expect(out).toEqual(input);
   });
 });

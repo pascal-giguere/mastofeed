@@ -31,10 +31,11 @@ export class PropertyDef {
 
   applyTransforms = (value: string): string => {
     let transformedValue: string = decode(value);
-    transformedValue = sanitizeHtml(transformedValue, { allowedTags: [] });
+
     this.transforms?.forEach((transform: Transform) => {
       transformedValue = transform.apply(transformedValue);
     });
-    return transformedValue;
+
+    return sanitizeHtml(transformedValue, { allowedTags: [] });
   };
 }
