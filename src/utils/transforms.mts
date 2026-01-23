@@ -104,6 +104,21 @@ export class SuffixTransform extends Transform {
   };
 }
 
+export class ReplaceTransform extends Transform {
+  private readonly searchValue: string | RegExp;
+  private readonly replaceValue: string;
+
+  constructor(searchValue: string | RegExp, replaceValue: string) {
+    super();
+    this.searchValue = searchValue;
+    this.replaceValue = replaceValue;
+  }
+
+  override apply = (value: string): string => {
+    return value.replace(this.searchValue, this.replaceValue);
+  };
+}
+
 export class AudioSnippetTransform extends Transform {
   private readonly label: string;
 

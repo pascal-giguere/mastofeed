@@ -13,6 +13,7 @@ import {
   CapitalizeTransform,
   PrefixTransform,
   SuffixTransform,
+  ReplaceTransform,
   AudioSnippetTransform,
   MapTransform,
   StripUtmParamsTransform,
@@ -74,6 +75,21 @@ describe("Transforms", () => {
 
   it("SuffixTransform adds a suffix", () => {
     expect(new SuffixTransform("-suf").apply("value")).toEqual("value-suf");
+  });
+
+  it("ReplaceTransform replaces only the first occurrence when using a string search", () => {
+    const r = new ReplaceTransform("foo", "bar");
+    expect(r.apply("foo and foo")).toEqual("bar and foo");
+  });
+
+  it("ReplaceTransform replaces all occurrences when using a global regex", () => {
+    const r = new ReplaceTransform(/foo/g, "bar");
+    expect(r.apply("foo and foo")).toEqual("bar and bar");
+  });
+
+  it("ReplaceTransform supports regex capture groups in replacement", () => {
+    const r = new ReplaceTransform(/(\d+)-(\d+)/, "$2/$1");
+    expect(r.apply("2023-12")).toEqual("12/2023");
   });
 
   it("AudioSnippetTransform formats seconds into minutes and seconds", () => {
