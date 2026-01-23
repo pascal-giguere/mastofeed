@@ -153,3 +153,23 @@ export class MapTransform extends Transform {
     return value;
   };
 }
+
+export class StripUtmParamsTransform extends Transform {
+  override apply = (value: string): string => {
+    try {
+      const url = new URL(value);
+      // Build a new search params object excluding any keys that start with 'utm_'
+      const newParams = new URLSearchParams();
+      for (const [key, val] of url.searchParams.entries()) {
+        if (!key.startsWith("utm_")) {
+          newParams.append(key, val);
+        }
+      }
+      url.search = newParams.toString();
+      return url.toString();
+    } catch (err) {
+      console.warn(`Could not strip UTM parameters from URL '${value}':`, err);
+      return value;
+    }
+  };
+}
