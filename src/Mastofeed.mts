@@ -16,7 +16,7 @@ type MastofeedOptions = {
 
 type MastodonOptions = { instanceUrl: string; accessToken: string };
 
-type RssOptions = { feedUrl: string; postDef: PostDef; maxSyncedItems?: number };
+type RssOptions = { feedUrl: string; postDef: PostDef; maxSyncedItems?: number; proxyUrl?: string };
 
 type LoggingOptions = { level?: LogLevel; prefix?: string };
 
@@ -26,6 +26,7 @@ export class Mastofeed {
   readonly rssFeedUrl: string;
   readonly postDef: PostDef;
   readonly maxSyncedItems: number;
+  readonly rssProxyUrl?: string;
 
   constructor(options: MastofeedOptions) {
     this.mastodonClient = new MastodonClient(options.mastodon.instanceUrl, options.mastodon.accessToken);
@@ -33,6 +34,7 @@ export class Mastofeed {
     this.rssFeedUrl = options.rss.feedUrl;
     this.postDef = options.rss.postDef;
     this.maxSyncedItems = this.computeMaxSyncedItems(options.rss.maxSyncedItems);
+    this.rssProxyUrl = options.rss.proxyUrl;
   }
 
   sync = async (): Promise<void> => {
@@ -90,7 +92,11 @@ export class Mastofeed {
   };
 
   private fetchFeedItems = async (): Promise<Item[]> => {
-    const feed: Output<Item> = await parseFeed(this.rssFeedUrl, this.logger);
+    const feed: Output<Item> = await parseFeed({
+      feedUrl: this.rssFeedUrl,
+      proxyUrl: this.rssProxyUrl,
+      logger: this.logger,
+    });
     this.logger.info(`Fetched ${feed.items.length} RSS feed items.`);
     const sortedItems = feed.items
       .sort((a: Item, b: Item) => new Date(b.isoDate ?? 0).getTime() - new Date(a.isoDate ?? 0).getTime())

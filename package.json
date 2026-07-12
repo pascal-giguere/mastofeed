@@ -1,6 +1,6 @@
 {
   "name": "mastofeed",
-  "version": "1.10.1",
+  "version": "1.11.0",
   "description": "A Node.js / TypeScript library to post RSS feed items to Mastodon. Outputs rich, highly-customizable posts.",
   "author": "Pascal Giguère",
   "homepage": "https://github.com/pascal-giguere/mastofeed#readme",
@@ -60,6 +60,7 @@
     "dot-prop": "^9.0.0",
     "html-entities": "^2.6.0",
     "rss-parser": "^3.13.0",
-    "striptags": "^3.2.0"
+    "striptags": "^3.2.0",
+    "undici": "^8.7.0"
   }
 }

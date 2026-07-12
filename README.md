@@ -107,6 +107,7 @@ const feed = new Mastofeed({
       author: { path: "dc:creator" },
       linkUrl: { path: "link" },
     },
+    proxyUrl: process.env.RSS_PROXY_URL, // e.g. http://user:pass@proxy:8080
     maxSyncedItems: 10,
   },
   logging: {
