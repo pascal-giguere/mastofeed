@@ -1,6 +1,6 @@
 {
   "name": "mastofeed",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "A Node.js / TypeScript library to post RSS feed items to Mastodon. Outputs rich, highly-customizable posts.",
   "author": "Pascal Giguère",
   "homepage": "https://github.com/pascal-giguere/mastofeed#readme",
@@ -39,7 +39,6 @@
     "@eslint/js": "^9.39.5",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.20.1",
-    "@types/sanitize-html": "^2.16.1",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.5",
@@ -61,6 +60,6 @@
     "dot-prop": "^9.0.0",
     "html-entities": "^2.6.0",
     "rss-parser": "^3.13.0",
-    "sanitize-html": "^2.17.6"
+    "striptags": "^3.2.0"
   }
 }

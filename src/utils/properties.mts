@@ -1,7 +1,7 @@
 import { Item } from "rss-parser";
 import { getProperty } from "dot-prop";
 import { decode } from "html-entities";
-import sanitizeHtml from "sanitize-html";
+import striptags from "striptags";
 import { Transform } from "./transforms.mjs";
 
 export type PropertyDefOptions = {
@@ -36,6 +36,6 @@ export class PropertyDef {
       transformedValue = transform.apply(transformedValue);
     });
 
-    return sanitizeHtml(transformedValue, { allowedTags: [] });
+    return striptags(transformedValue);
   };
 }
