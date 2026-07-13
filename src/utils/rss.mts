@@ -1,5 +1,5 @@
 import Parser, { Output, Item } from "rss-parser";
-import { ProxyAgent } from "undici";
+import { fetch, ProxyAgent, type Response } from "undici";
 import { Logger } from "./logging.mjs";
 
 const DEFAULT_HEADERS = {
@@ -21,6 +21,14 @@ function buildBodyPreview(body: string): { bodyPreview: string; truncated?: bool
     return { bodyPreview: body };
   }
   return { bodyPreview: body.slice(0, BODY_PREVIEW_LENGTH), truncated: true };
+}
+
+function formatFetchError(error: unknown): string {
+  if (!(error instanceof Error)) {
+    return String(error);
+  }
+  const cause = error.cause instanceof Error ? error.cause.message : error.cause;
+  return cause !== undefined ? `${error.message} (${String(cause)})` : error.message;
 }
 
 async function fetchFeedXml({
@@ -69,7 +77,7 @@ async function fetchFeedXml({
             {
               url: currentUrl,
               redirectAttempt,
-              error: error instanceof Error ? error.message : String(error),
+              error: formatFetchError(error),
             },
             null,
             2,
