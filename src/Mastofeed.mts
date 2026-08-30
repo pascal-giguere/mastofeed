@@ -7,6 +7,7 @@ import { parseFeed } from "./utils/rss.mjs";
 import { extractMFIDFromTootContent } from "./utils/mfid.mjs";
 import { Logger, LogLevel } from "./utils/logging.mjs";
 import { GLOBAL_MAX_SYNCED_ITEMS } from "./constants.mjs";
+import { assertSupportedNodeVersion } from "./utils/nodeVersion.mjs";
 
 type MastofeedOptions = {
   mastodon: MastodonOptions;
@@ -29,6 +30,7 @@ export class Mastofeed {
   readonly rssProxyUrl?: string;
 
   constructor(options: MastofeedOptions) {
+    assertSupportedNodeVersion();
     this.mastodonClient = new MastodonClient(options.mastodon.instanceUrl, options.mastodon.accessToken);
     this.logger = new Logger(options.logging?.level, options.logging?.prefix);
     this.rssFeedUrl = options.rss.feedUrl;

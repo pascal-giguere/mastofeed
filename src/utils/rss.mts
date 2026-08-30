@@ -1,6 +1,17 @@
 import Parser, { Output, Item } from "rss-parser";
-import { fetch, ProxyAgent, type Response } from "undici";
+import type { Response } from "undici";
 import { Logger } from "./logging.mjs";
+import { assertSupportedNodeVersion } from "./nodeVersion.mjs";
+
+type Undici = typeof import("undici");
+
+let undiciModule: Undici | undefined;
+
+async function loadUndici(): Promise<Undici> {
+  assertSupportedNodeVersion();
+  undiciModule ??= await import("undici");
+  return undiciModule;
+}
 
 const DEFAULT_HEADERS = {
   "User-Agent": "Mastofeed (+https://github.com/pascal-giguere/mastofeed)",
@@ -40,6 +51,7 @@ async function fetchFeedXml({
   proxyUrl?: string;
   logger?: Logger;
 }): Promise<string> {
+  const { fetch, ProxyAgent } = await loadUndici();
   let currentUrl = feedUrl;
   const dispatcher = proxyUrl ? new ProxyAgent(proxyUrl) : undefined;
 
