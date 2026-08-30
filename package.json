@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/pascal-giguere/mastofeed.git"
+    "url": "git+https://github.com/pascal-giguere/mastofeed.git"
   },
   "type": "module",
   "packageManager": "yarn@4.17.1",
