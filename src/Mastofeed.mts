@@ -4,7 +4,7 @@ import { isAxiosError } from "axios";
 import { buildPost, buildTootText, Post, PostDef } from "./utils/posts.mjs";
 import { MastodonClient } from "./utils/mastodon.mjs";
 import { parseFeed } from "./utils/rss.mjs";
-import { extractMFIDFromUrl, extractUrlFromTootContent } from "./utils/mfid.mjs";
+import { extractMFIDFromTootContent } from "./utils/mfid.mjs";
 import { Logger, LogLevel } from "./utils/logging.mjs";
 import { GLOBAL_MAX_SYNCED_ITEMS } from "./constants.mjs";
 
@@ -81,8 +81,7 @@ export class Mastofeed {
     const existingToots = await this.mastodonClient.fetchExistingToots();
     return existingToots.reduce((acc: string[], toot: Entity.Status) => {
       try {
-        const url: string = extractUrlFromTootContent(toot.content);
-        const mfid: string = extractMFIDFromUrl(url);
+        const mfid: string = extractMFIDFromTootContent(toot.content);
         acc.push(mfid);
       } catch (err) {
         console.error(`Failed to extract MFID from toot '${toot.id}': ${err}`);
