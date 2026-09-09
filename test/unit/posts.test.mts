@@ -113,6 +113,38 @@ Author — Category
 https://example.com/?mfid=MTIz`);
   });
 
+  it("drops the description when the title leaves no room for it", () => {
+    // Title (474) + link (23) + newlines fit within 500, so the title is kept as-is, but there's no
+    // budget left for the description, so it's dropped rather than sliced to garbage.
+    const title: string = "T".repeat(474);
+    const post: Post = {
+      id: "123",
+      title,
+      linkUrl: "https://example.com/",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    };
+    expect(buildTootText(post)).toEqual(`${title}
+
+https://example.com/?mfid=MTIz`);
+  });
+
+  it("truncates the title with an ellipsis (preserving the link) when it exceeds the limit", () => {
+    // Link is counted as 23 chars, so with two newlines the title budget is 500 - 25 = 475. A
+    // 490-char title is trimmed to 474 chars + "…", keeping the link intact.
+    const post: Post = {
+      id: "123",
+      title: "T".repeat(490),
+      linkUrl: "https://example.com/",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    };
+    const expectedTitle: string = "T".repeat(474) + "…";
+    expect(buildTootText(post)).toEqual(`${expectedTitle}
+
+https://example.com/?mfid=MTIz`);
+  });
+
   const titleKickerDescriptionAndLink: Post = {
     id: "123",
     title: "Title",
